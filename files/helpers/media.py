@@ -37,7 +37,7 @@ def process_audio(file):
 	name = f'/audio/{time.time()}'.replace('.','') + '.mp3'
 	file.save(name)
 
-	if os.stat(name).st_size > 8 * 1024 * 1024:
+	if os.stat(name).st_size > UPLOAD_SIZE_LIMIT_NORMAL:
 		with open(name, 'rb') as f:
 			os.remove(name)
 			req = requests.request("POST", "https://pomf2.lain.la/upload.php",
@@ -52,14 +52,21 @@ def process_video(file):
 	new = old + '.mp4'
 	file.save(old)
 
+	# TODO: Assumes file extension is accurate to container & codec.
+	#       Actually verify what it is first (ffprobe?).
 	if file.filename.split('.')[-1].lower() == 'webm':
-		subprocess.run(["ffmpeg", "-y", "-loglevel", "warning", "-i", old, "-map_metadata", "-1", new], check=True, stderr=subprocess.STDOUT)
+		if os.stat(old).st_size <= UPLOAD_SIZE_LIMIT_NORMAL:
+			subprocess.run(["ffmpeg", "-y", "-loglevel", "warning", "-i", old, "-map_metadata", "-1", new], check=True, stderr=subprocess.STDOUT)
+		elif not UPLOAD_REJECT_WEBM:
+			file.save(new)
+		else:
+			abort(413)
 	else:
 		subprocess.run(["ffmpeg", "-y", "-loglevel", "warning", "-i", old, "-map_metadata", "-1", "-c:v", "copy", "-c:a", "copy", new], check=True)
 	
 	os.remove(old)
 	size = os.stat(new).st_size
-	if os.stat(new).st_size > 8 * 1024 * 1024:
+	if os.stat(new).st_size > UPLOAD_SIZE_LIMIT_NORMAL:
 		with open(new, 'rb') as f:
 			os.remove(new)
 			req = requests.request("POST", "https://pomf2.lain.la/upload.php",
@@ -75,7 +82,7 @@ def process_image(filename=None, resize=0):
 	if resize == 100: patron = False
 	else: patron = g.v.patron
 
-	if size > 16 * 1024 * 1024 or not patron and size > 8 * 1024 * 1024:
+	if size > UPLOAD_SIZE_LIMIT_PATRON or (not patron and size > UPLOAD_SIZE_LIMIT_NORMAL):
 		os.remove(filename)
 		abort(413)
 

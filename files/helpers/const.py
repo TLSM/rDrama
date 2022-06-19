@@ -139,6 +139,10 @@ AGENDAPOSTER_MSG_HTML = """<p>Hi <a href="/id/{id}"><img loading="lazy" src="/pp
 ### SITE SPECIFIC CONSTANTS
 ################################################################################
 
+UPLOAD_SIZE_LIMIT_NORMAL_MB =  8 # MB
+UPLOAD_SIZE_LIMIT_PATRON_MB = 16 # MB
+UPLOAD_REJECT_WEBM = False # if True: if webm too large to transcode, reject upload.
+
 HOLE_COST = 0
 HOLE_INACTIVITY_DELETION = False
 PIN_LIMIT = 3
@@ -278,6 +282,7 @@ elif SITE == 'cringetopia.org':
 		"7": "886781932430565418",
 	}
 elif SITE == 'watchpeopledie.co':
+	UPLOAD_REJECT_WEBM = True
 	HOLE_COST = 10000
 
 	GIFT_NOTIF_ID = 13
@@ -286,6 +291,9 @@ elif SITE == 'watchpeopledie.co':
 	SNAKES_ID = 32
 else: # localhost or testing environment implied
 	pass
+
+UPLOAD_SIZE_LIMIT_NORMAL = UPLOAD_SIZE_LIMIT_NORMAL_MB * 1024 * 1024
+UPLOAD_SIZE_LIMIT_PATRON = UPLOAD_SIZE_LIMIT_PATRON_MB * 1024 * 1024
 
 bots = {NOTIFICATIONS_ID, AUTOJANNY_ID, SNAPPY_ID, LONGPOSTBOT_ID, ZOZBOT_ID, AUTOPOLLER_ID, AUTOBETTER_ID, AUTOCHOICE_ID, BASEDBOT_ID}
 

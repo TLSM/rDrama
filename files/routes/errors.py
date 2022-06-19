@@ -3,7 +3,8 @@ from flask import *
 from urllib.parse import quote, urlencode
 import time
 from files.__main__ import app, limiter
-
+from files.helpers.const import \
+	UPLOAD_SIZE_LIMIT_NORMAL_MB, UPLOAD_SIZE_LIMIT_PATRON_MB, patron
 
 
 @app.errorhandler(400)
@@ -47,10 +48,12 @@ def error_405(e):
 
 @app.errorhandler(413)
 def error_413(e):
-	return {"error": "Max image/audio size is 8 MB (16 MB for paypigs)"}, 413
-	if request.headers.get("Authorization") or request.headers.get("xhr"):
-		return {"error": "Max image/audio size is 8 MB (16 MB for paypigs)"}, 413
-	else: return render_template('errors/413.html', err=True), 413
+	msg = f"Max image/audio size is {UPLOAD_SIZE_LIMIT_NORMAL_MB} MB " \
+		+ f"({UPLOAD_SIZE_LIMIT_PATRON_MB} MB for {patron}s)"
+	return {"error": msg}, 413
+	# if request.headers.get("Authorization") or request.headers.get("xhr"):
+	# 	return {"error": "Max image/audio size is 8 MB (16 MB for paypigs)"}, 413
+	# else: return render_template('errors/413.html', err=True), 413
 
 @app.errorhandler(429)
 def error_429(e):

@@ -403,7 +403,7 @@
 												{% if v.song and v.song == v.id|string %}
 													{{v.id}}.mp3
 												{% else %}
-													Use an MP3 file (Max size is 8MB)
+													Use an MP3 file (Max size is {{UPLOAD_SIZE_LIMIT_MB}}MB)
 												{% endif %}
 											</div>
 											<input autocomplete="off" id="file-upload2" type="file" name="file" {% if request.headers.get('cf-ipcountry')=="T1" %}disabled{% endif %} accept="audio/mp3" onchange="this.form.submit()" hidden>

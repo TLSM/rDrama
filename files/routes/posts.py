@@ -695,7 +695,7 @@ def thumbnail_thread(pid):
 		return
 
 	size = len(image.fp.read())
-	if size > 8 * 1024 * 1024:
+	if size > UPLOAD_SIZE_LIMIT_NORMAL:
 		db.close()
 		return
 

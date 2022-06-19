@@ -796,9 +796,10 @@ def settings_song_change_mp3(v):
 	file.save(name)
 
 	size = os.stat(name).st_size
-	if size > 8 * 1024 * 1024:
+	if size > UPLOAD_SIZE_LIMIT_NORMAL:
 		os.remove(name)
-		return render_template("settings_profile.html", v=v, error="MP3 file must be smaller than 8MB")
+		return render_template("settings_profile.html", v=v,
+			error=f"MP3 file must be smaller than {UPLOAD_SIZE_LIMIT_NORMAL_MB}MB")
 
 	v.song = v.id
 	g.db.add(v)
