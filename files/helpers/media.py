@@ -60,6 +60,7 @@ def process_video(file):
 		elif not UPLOAD_REJECT_WEBM:
 			file.save(new)
 		else:
+			os.remove(old)
 			abort(413)
 	else:
 		subprocess.run(["ffmpeg", "-y", "-loglevel", "warning", "-i", old, "-map_metadata", "-1", "-c:v", "copy", "-c:a", "copy", new], check=True)
