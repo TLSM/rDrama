@@ -295,8 +295,6 @@ class Comment(Base):
 
 		if self.level >= 2: data['parent_comment_id'] = self.parent_comment_id
 		
-		data['replies'] = [x.json_core for x in self.replies()]
-
 		return data
 
 	@property
@@ -313,6 +311,7 @@ class Comment(Base):
 		if self.level >= 2:
 			data["parent"]=self.parent.json_core
 
+		data['replies'] = [x.json_core for x in self.replies()]
 
 		return data
 
