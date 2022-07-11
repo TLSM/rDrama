@@ -91,14 +91,21 @@ def execute_snappy(post, v):
 
 	captured = []
 	body_for_snappy = post.body_html.replace(' data-src="', ' src="')
+
+
 	for i in list(snappy_url_regex.finditer(body_for_snappy)):
-		if i.group(1) in captured: continue
-		captured.append(i.group(1))
-
 		href = i.group(1)
-		if not href: continue
-
+		if href in [x[0] for x in captured]: continue
 		title = i.group(2)
+		captured.append((href, title))
+
+	for i in list(snappy_youtube_regex.finditer(body_for_snappy)):
+		href = f'https://youtube.com/watch?v={i.group(1)}'
+		if href in [x[0] for x in captured]: continue
+		captured.append((href, href))
+
+
+	for href, title in captured:
 		if "Snapshots:\n\n" not in body: body += "Snapshots:\n\n"
 
 		if f'**[{title}]({href})**:\n\n' not in body:
