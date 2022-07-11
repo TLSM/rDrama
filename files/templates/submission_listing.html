@@ -73,7 +73,9 @@
 		<pre></pre>
 		<ul style="padding-left:20px; margin-bottom: 0;word-wrap:break-word">
 			{% for f in p.flags %}
-				<li>{% if v and v.admin_level >= PERMS['FLAGS_VISIBLE_REPORTER'] %}<a style="font-weight:bold" href="{{f.user.url}}">{{f.user.username}}</a>{% else %}User{% endif %}{% if f.reason %}: {{f.realreason(v) | safe}}{% endif %} {% if v and v.admin_level >= PERMS['FLAGS_REMOVE'] %}<a role="button" onclick="post_toast(this,'/del_report/post/{{f.post_id}}/{{f.user_id}}')">[remove]</a>{% endif %}</li>
+				{% if (v and v.shadowbanned) or not f.user.shadowbanned %}
+					<li>{% if v and v.admin_level >= PERMS['FLAGS_VISIBLE_REPORTER'] %}<a style="font-weight:bold" href="{{f.user.url}}">{{f.user.username}}</a>{% else %}User{% endif %}{% if f.reason %}: {{f.realreason(v) | safe}}{% endif %} {% if v and v.admin_level >= PERMS['FLAGS_REMOVE'] %}<a role="button" onclick="post_toast(this,'/del_report/post/{{f.post_id}}/{{f.user_id}}')">[remove]</a>{% endif %}</li>
+				{% endif %}
 			{% endfor %}
 		</ul>
 	</div>
