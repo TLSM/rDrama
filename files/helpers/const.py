@@ -104,20 +104,9 @@ if SITE_NAME == 'rDrama':
 	}
 else:
 	SLURS = {
-		"retarded": "neurodivergent",
-		"retard": "neurodivergent",
 		"faggot": "cute twink",
 		"fag": "cute twink",
-		"n1gger": "🏀",
-		"nlgger": "🏀",
-		"nigger": "🏀",
-		"uss liberty incident": "tragic accident aboard the USS Liberty",
-		"lavon affair": "Lavon Misunderstanding",
-		"i hate marsey": "i love marsey",
-		"autistic": "neurodivergent",
-		"holohoax": "i tried to claim the Holocaust didn't happen because I am a pencil-dicked imbecile and the word filter caught me lol",
-		"i hate carp": "i love Carp",
-		"heil hitler": "hello kitty",
+		"nigger": "🏀"
 	}
 
 single_words = "|".join([slur.lower() for slur in SLURS.keys()])
