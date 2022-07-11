@@ -105,7 +105,9 @@
 					</div> 
 				</div>
 
-				<p class="font-weight-bolder" id="profile--pronouns" style="color: #{{u.titlecolor}}">{{u.pronouns}}</p>
+				{% if SITE_NAME == 'rDrama' %}
+					<p class="font-weight-bolder" id="profile--pronouns" style="color: #{{u.titlecolor}}">{{u.pronouns}}</p>
+				{% endif %}
 
 				{% if u.customtitle %}
 					<p class="font-weight-bolder" id="profile--flair" style="color: #{{u.titlecolor}}">{{u.customtitle | safe}}</p>
@@ -412,7 +414,9 @@
 					<span class="followsyou badge badge-secondary text-small align-middle mx-1" id="profile--follows-you">Follows you</span>
 				{% endif %}
 
-				<p style="color: #{{u.titlecolor}}" id="profile--pronouns">{{u.pronouns}}</p>
+				{% if SITE_NAME == 'rDrama' %}
+					<p style="color: #{{u.titlecolor}}" id="profile--pronouns">{{u.pronouns}}</p>
+				{% endif %}
 
 				{% if u.customtitle %}
 					<p style="color: #{{u.titlecolor}}" id="profile--flair">{{u.customtitle | safe}}</p>
