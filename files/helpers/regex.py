@@ -1,5 +1,6 @@
 import re
 from .const import *
+from random import choice
 
 if SITE_NAME == 'PCM':
 	valid_username_chars = 'a-zA-Z0-9_\-А-я'
@@ -128,3 +129,15 @@ def torture_ap(body, username):
 		lines[i] = torture_regex2.sub(rf'\1@{username} is ', lines[i])
 
 	return ''.join(lines)
+
+
+commands = {
+	"fortune": FORTUNE_REPLIES,
+	"factcheck": FACTCHECK_REPLIES,
+	"8ball": EIGHTBALL_REPLIES
+}
+
+command_regex = re.compile("(\s|\n)#(fortune|factcheck|8ball)", flags=re.A|re.I)
+
+def command_regex_matcher(match, upper=False):
+	return match.group(1) + choice(commands[match.group(2).lower()])

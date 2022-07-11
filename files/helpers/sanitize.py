@@ -201,6 +201,8 @@ def sanitize(sanitized, edit=False):
 
 	sanitized = link_fix_regex.sub(r'\1https://\2', sanitized)
 
+	sanitized = command_regex.sub(command_regex_matcher, sanitized)
+
 	sanitized = markdown(sanitized)
 
 	sanitized = strikethrough_regex.sub(r'\1<del>\2</del>', sanitized)
@@ -302,24 +304,9 @@ def sanitize(sanitized, edit=False):
 			marsey.count += 1
 			g.db.add(marsey)
 
-	if '#fortune' in sanitized:
-		sanitized = sanitized.replace('#fortune', '')
-		sanitized += '\n\n<p>' + choice(FORTUNE_REPLIES) + '</p>'
-
-	if '#8ball' in sanitized:
-		(b8txt, b8knd) = choice(EIGHTBALL_REPLIES)
-		b8color = EIGHTBALL_COLORS[b8knd]
-		sanitized = sanitized.replace('#8ball', '')
-		sanitized += '\n\n<p><span style="font-weight: bold; color: %s;">The 8-Ball Says: %s</span></p>' % (b8color, b8txt)
-
-	if '#factcheck' in sanitized:
-		sanitized = sanitized.replace('#factcheck', '')
-		sanitized += '\n\n<p>' + choice(FACTCHECK_REPLIES) + '</p>'
-
 	sanitized = sanitized.replace('<p></p>', '')
 	sanitized = utm_regex.sub('', sanitized)
 	sanitized = utm_regex2.sub('', sanitized)
-
 
 	sanitized = sanitized.replace('<html><body>','').replace('</body></html>','')
 
