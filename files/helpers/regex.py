@@ -137,7 +137,7 @@ commands = {
 	"8ball": EIGHTBALL_REPLIES
 }
 
-command_regex = re.compile("(\s|\n)#(fortune|factcheck|8ball)", flags=re.A|re.I)
+command_regex = re.compile("(\s|\n|^)#(fortune|factcheck|8ball)", flags=re.A|re.I)
 
 def command_regex_matcher(match, upper=False):
 	return match.group(1) + choice(commands[match.group(2).lower()])
