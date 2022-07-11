@@ -3438,7 +3438,6 @@ small, .small {
 	border-style: solid;
 	border-radius: 0;
 	padding: 0.5rem;
-	padding-bottom: 0.1rem !important;
 }
 #frontpage .posts .card:hover, #userpage .posts .card:hover, #search .posts .card:hover {
 	background-color: var(--gray-600);
@@ -4274,7 +4273,6 @@ pre .com, code .com {
 }
 	#frontpage .posts .card, #userpage .posts .card, #search .posts .card, #userpage .posts .card {
 		background-color: var(--gray-600);
-		padding-bottom: 0.5rem !important;
 }
 	#frontpage .posts .card:hover .post-title a, #search .posts .card:hover .post-title a {
 		color: var(--primary);
@@ -6038,4 +6036,17 @@ g {
 	padding: 2px 5px 3px 5px;
 	border-radius: 5px;
 	color: white;
+}
+
+.post-preview {
+	padding: 11px 14px 0 14px !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+}
+
+
+@media (max-width: 767.98px) {
+	.post-preview {
+		padding: 7px 9px 2px 9px !important;
+	}
 }
