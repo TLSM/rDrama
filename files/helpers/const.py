@@ -317,8 +317,8 @@ elif SITE == 'watchpeopledie.co':
 	LONGPOSTBOT_ID = 4
 	ZOZBOT_ID = 5
 
-	GIFT_NOTIF_ID = 13
-	CARP_ID = 13
+	GIFT_NOTIF_ID = 9
+	CARP_ID = 9
 	AEVANN_ID = 9
 	SNAKES_ID = 32
 elif SITE == 'lgbdropthet.com':

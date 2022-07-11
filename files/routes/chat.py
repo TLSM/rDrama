@@ -2,6 +2,7 @@ import time
 from files.helpers.wrappers import auth_required
 from files.helpers.sanitize import sanitize
 from files.helpers.const import *
+from files.helpers.alerts import *
 from files.helpers.regex import *
 from datetime import datetime
 from flask_socketio import SocketIO, emit
@@ -66,6 +67,7 @@ def speak(data, v):
 		emit('speak', data)
 		v.shadowbanned = 'AutoJanny'
 		g.db.add(v)
+		send_repeatable_notification(CARP_ID, f"{v.username} has been shadowbanned because of a chat message.")
 	else:
 		emit('speak', data, broadcast=True)
 		messages.append(data)
