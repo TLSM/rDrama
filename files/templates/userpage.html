@@ -105,8 +105,12 @@
 					</div> 
 				</div>
 
-				{% if u.customtitle %}<p class="font-weight-bolder" id="profile--flair" style="color: #{{u.titlecolor}}">{{u.customtitle | safe}}</p>
-				{% else %}<pre></pre>
+				<p class="font-weight-bolder" id="profile--pronouns" style="color: #{{u.titlecolor}}">{{u.pronouns}}</p>
+
+				{% if u.customtitle %}
+					<p class="font-weight-bolder" id="profile--flair" style="color: #{{u.titlecolor}}">{{u.customtitle | safe}}</p>
+				{% else %}
+					<pre></pre>
 				{% endif %}
 				
 				<div class="font-weight-bolder mb-2" id="profile--simphate"><a class="mr-1" href="/@{{u.username}}/upvoters">Simps</a> | <a class="mx-1" href="/@{{u.username}}/downvoters">Haters</a> | <a class="mx-1" href="/@{{u.username}}/upvoting">Simps for</a> | <a class="ml-1" href="/@{{u.username}}/downvoting">Hates</a></div>
@@ -407,7 +411,11 @@
 				{% if v and v.id != u.id and v.has_follower(u) and not v.is_nofollow %}
 					<span class="followsyou badge badge-secondary text-small align-middle mx-1" id="profile--follows-you">Follows you</span>
 				{% endif %}
-				{% if u.customtitle %}<p style="color: #{{u.titlecolor}}" id="profile--flair">{{u.customtitle | safe}}</p>
+
+				<p style="color: #{{u.titlecolor}}" id="profile--pronouns">{{u.pronouns}}</p>
+
+				{% if u.customtitle %}
+					<p style="color: #{{u.titlecolor}}" id="profile--flair">{{u.customtitle | safe}}</p>
 				{% else %}
 					<pre></pre>
 				{% endif %}
