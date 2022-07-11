@@ -280,7 +280,7 @@
 			<a href="{{sub.banner_url}}">
 				<img alt="/h/{{sub.name}} banner" role="button" onclick="expandDesktopImage()" loading="lazy" src="{{sub.banner_url}}" width=100% style="object-fit:cover;max-height:min(42vh,30vw)!important">
 			</a>
-		{% elif SITE_NAME == 'Chudrama' %}
+		{% elif SITE_NAME == 'Deuxrama' %}
 			{% set path = "assets/images/" + SITE_NAME + "/banners" %}
 			{% set image = "/" + path + "/" + listdir('files/' + path)|random() + '?v=25' %}
 
