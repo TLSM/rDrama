@@ -83,7 +83,7 @@
 					</div>
 					
 		{% if render_replies %} 
-			{% if level<9 or request.path == '/notifications' or request.headers.get("xhr") %}
+			{% if level<9 or request.path.startswith('/notifications') or request.headers.get("xhr") %}
 				<div id="replies-of-{{c.id}}">
 					{% for reply in replies %}
 						{{single_comment(reply, level=level+1)}}
@@ -586,7 +586,7 @@
 
 
 	{% if render_replies %} 
-		{% if level<9 or request.path == '/notifications' or request.headers.get("xhr") %}
+		{% if level<9 or request.path.startswith('/notifications') or request.headers.get("xhr") %}
 			<div id="replies-of-{{c.id}}">
 				{% for reply in replies %}
 					{{single_comment(reply, level=level+1)}}
@@ -599,7 +599,7 @@
 			</div>
 		{% endif %}
 
-		{% if request.path == '/notifications' and c.level == 1 and c.sentto and not c.parent_submission and c.author_id != AUTOJANNY_ID %}
+		{% if request.path.startswith('/notifications') and c.level == 1 and c.sentto and not c.parent_submission and c.author_id != AUTOJANNY_ID %}
 			<a class="btn btn-primary mt-2" role="button" onclick="openReplyBox('reply-message-{{c.id}}')">Reply</a>
 			<div id="reply-message-{{c.id}}" class="d-none">
 				<div id="comment-form-space-{{c.id}}" class="comment-write collapsed child">
