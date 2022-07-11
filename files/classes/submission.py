@@ -282,7 +282,7 @@ class Submission(Base):
 
 
 		if "replies" in self.__dict__:
-			data["replies"]=[x.json_core for x in self.replies]
+			data["replies"]=[x.json for x in self.replies]
 
 		if "voted" in self.__dict__:
 			data["voted"] = self.voted

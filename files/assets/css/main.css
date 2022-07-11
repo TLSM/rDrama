@@ -4794,8 +4794,8 @@ input[type=radio] ~ .custom-control-label::before {
 	max-width: 90% !important 
 }
 .emj, .emoji, strong a img, img[alt^=":"]:not(img[b]):not(img[alt*="#"]) {
-	height: 30px !important;
-	width: 30px !important;
+	height: 40px !important;
+	width: 40px !important;
 }
 .bigemoji, .emoji-md, img[alt^=":"]:not(img[alt*="#"]) {
 	height: 60px;
@@ -6030,3 +6030,12 @@ g {
 .fa-circle-info:before{content:"\f05a"}
 .fa-comment-question:before{content:"\e14b"}
 .fa-sitemap:before{content:"\f0e8"}
+
+.pronouns {
+	font-size: 11px;
+	margin-left: 0.25rem;
+	font-weight: 500;
+	padding: 1px 3px 3px 3px;
+	border-radius: 5px;
+	color: white;
+}

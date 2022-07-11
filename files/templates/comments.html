@@ -206,6 +206,9 @@
 						{% endif %}
 						<span {% if c.author.patron and not c.distinguish_level %}class="patron" style="background-color:#{{c.author.namecolor}};"{% elif c.distinguish_level %}class="mod"{% endif %}>{{c.author_name}}</span>
 					</a>
+					{% if SITE_NAME == 'rDrama' %}
+						<span class="pronouns" style="background-color:#{{c.author.titlecolor}}">{{c.author.pronouns}}</span>
+					{% endif %}
 					{% if c.author.customtitle %}
 						&nbsp;<bdi style="color: #{{c.author.titlecolor}}">&nbsp;{{c.author.customtitle | safe}}</bdi>
 					{% endif %}

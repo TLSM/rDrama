@@ -880,6 +880,26 @@ def settings_title_change(v):
 	return redirect("/settings/profile")
 
 
+@app.post("/settings/pronouns_change")
+@limiter.limit("1/second;30/minute;200/hour;1000/day")
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@auth_required
+def settings_pronouns_change(v):
+	
+	pronouns = request.values.get("pronouns").replace("𒐪","").lower().strip()
+
+	if pronouns == v.pronouns:
+		return render_template("settings_profile.html", v=v, error="You didn't change anything")
+
+	if not pronouns_regex.fullmatch(pronouns):
+		return render_template("settings_profile.html", v=v, error="The pronouns you entered don't match the required format {1-5 characters}/{1-5 characters}")
+
+	v.pronouns = pronouns
+	g.db.add(v)
+
+	return redirect("/settings/profile")
+
+
 @app.post("/settings/checkmark_text")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
 @limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
