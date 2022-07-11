@@ -401,7 +401,10 @@ class Submission(Base):
 			return True
 		return False
 
-	@property
 	@lazy
-	def active_flags(self):
-		return len(self.flags)
+	def filtered_flags(self, v):
+		return [f for f in self.flags if (v and v.shadowbanned) or not f.user.shadowbanned]
+
+	@lazy
+	def active_flags(self, v):
+		return len(self.filtered_flags(v))

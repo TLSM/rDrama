@@ -658,7 +658,7 @@
 						{% if p.is_bot %} <i class="fas fa-robot text-info" data-bs-toggle="tooltip" data-bs-placement="bottom"	title="Bot"></i>{% endif %}
 						{% if p.over_18 %}<span class="badge badge-danger text-small-extra mr-1">+18</span>{% endif %}
 						{% if p.private %}<span class="badge border-warning border-1 text-small-extra">Draft</span>{% endif %}
-						{% if p.active_flags and (v and v.admin_level >= PERMS['FLAGS_VISIBLE']) %}<a class="btn btn-primary" role="button" style="padding:1px 5px; font-size:10px"onclick="document.getElementById('flaggers').classList.toggle('d-none')">{{p.active_flags}} Report{{ help.plural(p.active_flags) }}</a>{% endif %}
+						{% if p.active_flags(v) and (v and v.admin_level >= PERMS['FLAGS_VISIBLE']) %}<a class="btn btn-primary" role="button" style="padding:1px 5px; font-size:10px"onclick="document.getElementById('flaggers').classList.toggle('d-none')">{{p.active_flags(v)}} Report{{ help.plural(p.active_flags(v)) }}</a>{% endif %}
 
 						{% if p.ghost %}
 							<span {% if p.distinguish_level %}class="mod"{% endif %}>👻</span>
@@ -691,15 +691,13 @@
 						{% endif %}
 						&nbsp;&nbsp;{{p.views}} thread views
 					</div>
-					{% if p.active_flags and (v and v.admin_level >= PERMS['FLAGS_VISIBLE']) %}
+					{% if p.active_flags(v) and (v and v.admin_level >= PERMS['FLAGS_VISIBLE']) %}
 					<div id="flaggers" class="flaggers d-none">
 						<strong><i class="far fa-fw fa-flag"></i> Reported by:</strong>
 						<pre></pre>
 						<ul style="padding-left:20px; margin-bottom: 0;word-wrap:break-word">
-							{% for f in p.flags %}
-								{% if (v and v.shadowbanned) or not f.user.shadowbanned %}
-									<li>{% if v and v.admin_level >= PERMS['FLAGS_VISIBLE_REPORTER'] %}<a style="font-weight:bold" href="{{f.user.url}}">{{f.user.username}}</a>{% else %}User{% endif %}{% if f.reason %}: {{f.realreason(v) | safe}}{% endif %} {% if v and v.admin_level >= PERMS['FLAGS_REMOVE'] %}<a role="button" onclick="post_toast(this,'/del_report/post/{{f.post_id}}/{{f.user_id}}')">[remove]</a>{% endif %}</li>
-								{% endif %}
+							{% for f in p.filtered_flags(v) %}
+								<li>{% if v and v.admin_level >= PERMS['FLAGS_VISIBLE_REPORTER'] %}<a style="font-weight:bold" href="{{f.user.url}}">{{f.user.username}}</a>{% else %}User{% endif %}{% if f.reason %}: {{f.realreason(v) | safe}}{% endif %} {% if v and v.admin_level >= PERMS['FLAGS_REMOVE'] %}<a role="button" onclick="post_toast(this,'/del_report/post/{{f.post_id}}/{{f.user_id}}')">[remove]</a>{% endif %}</li>
 							{% endfor %}
 						</ul>
 					</div>

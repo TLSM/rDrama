@@ -391,10 +391,14 @@ class Comment(Base):
 	@lazy
 	def is_op(self): return self.author_id==self.post.author_id
 	
-	@property
 	@lazy
-	def active_flags(self): return len(self.flags)
-	
+	def filtered_flags(self, v):
+		return [f for f in self.flags if (v and v.shadowbanned) or not f.user.shadowbanned]
+
+	@lazy
+	def active_flags(self, v):
+		return len(self.filtered_flags(v))
+
 	@lazy
 	def wordle_html(self, v):
 		if not self.wordle_result: return ''
