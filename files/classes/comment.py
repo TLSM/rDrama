@@ -242,40 +242,6 @@ class Comment(Base):
 		if self.ghost: return '👻'
 		else: return self.author.username
 
-	@property
-	@lazy
-	def json_raw(self):
-		flags = {}
-		for f in self.flags: flags[f.user.username] = f.reason
-
-		data= {
-			'id': self.id,
-			'level': self.level,
-			'author_name': self.author_name,
-			'body': self.body,
-			'body_html': self.body_html,
-			'is_bot': self.is_bot,
-			'created_utc': self.created_utc,
-			'edited_utc': self.edited_utc or 0,
-			'is_banned': bool(self.is_banned),
-			'deleted_utc': self.deleted_utc,
-			'is_nsfw': self.over_18,
-			'permalink': f'/comment/{self.id}',
-			'stickied': self.stickied,
-			'distinguish_level': self.distinguish_level,
-			'post_id': self.post.id if self.post else 0,
-			'score': self.score,
-			'upvotes': self.upvotes,
-			'downvotes': self.downvotes,
-			'is_bot': self.is_bot,
-			'flags': flags,
-			}
-
-		if self.ban_reason:
-			data["ban_reason"]=self.ban_reason
-
-		return data
-
 	@lazy
 	def award_count(self, kind, v):
 		if v and v.poor: return 0
@@ -300,13 +266,36 @@ class Comment(Base):
 					'parent': self.parent_fullname
 					}
 		else:
+			flags = {}
+			for f in self.flags: flags[f.user.username] = f.reason
 
-			data=self.json_raw
+			data= {
+				'id': self.id,
+				'level': self.level,
+				'author_name': self.author_name,
+				'body': self.body,
+				'body_html': self.body_html,
+				'is_bot': self.is_bot,
+				'created_utc': self.created_utc,
+				'edited_utc': self.edited_utc or 0,
+				'is_banned': bool(self.is_banned),
+				'deleted_utc': self.deleted_utc,
+				'is_nsfw': self.over_18,
+				'permalink': f'/comment/{self.id}',
+				'stickied': self.stickied,
+				'distinguish_level': self.distinguish_level,
+				'post_id': self.post.id if self.post else 0,
+				'score': self.score,
+				'upvotes': self.upvotes,
+				'downvotes': self.downvotes,
+				'is_bot': self.is_bot,
+				'flags': flags,
+				}
 
-			if self.level>=2: data['parent_comment_id']= self.parent_comment_id
 
-		if "replies" in self.__dict__:
-			data['replies']=[x.json_core for x in self.replies(None)]
+		if self.level >= 2: data['parent_comment_id'] = self.parent_comment_id
+		
+		data['replies'] = [x.json_core for x in self.replies()]
 
 		return data
 

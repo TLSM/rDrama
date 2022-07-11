@@ -619,8 +619,19 @@ class User(Base):
 
 	@property
 	@lazy
-	def json_raw(self):
-		data = {'username': self.username,
+	def json_core(self):
+
+		if self.is_suspended:
+			return {'username': self.username,
+					'url': self.url,
+					'is_banned': True,
+					'is_permanent_ban': not bool(self.unban_utc),
+					'ban_reason': self.ban_reason,
+					'id': self.id
+					}
+
+
+		return {'username': self.username,
 				'url': self.url,
 				'is_banned': bool(self.is_banned),
 				'created_utc': self.created_utc,
@@ -633,22 +644,6 @@ class User(Base):
 				'flair': self.customtitle
 				}
 
-		return data
-
-	@property
-	@lazy
-	def json_core(self):
-
-		now = int(time.time())
-		if self.is_suspended:
-			return {'username': self.username,
-					'url': self.url,
-					'is_banned': True,
-					'is_permanent_ban': not bool(self.unban_utc),
-					'ban_reason': self.ban_reason,
-					'id': self.id
-					}
-		return self.json_raw
 
 	@property
 	@lazy

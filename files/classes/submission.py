@@ -216,11 +216,30 @@ class Submission(Base):
 
 	@property
 	@lazy
-	def json_raw(self):
+	def json_core(self):
+
+		if self.is_banned:
+			return {'is_banned': True,
+					'deleted_utc': self.deleted_utc,
+					'ban_reason': self.ban_reason,
+					'id': self.id,
+					'title': self.title,
+					'permalink': self.permalink,
+					}
+		
+		if self.deleted_utc:
+			return {'is_banned': bool(self.is_banned),
+					'deleted_utc': True,
+					'id': self.id,
+					'title': self.title,
+					'permalink': self.permalink,
+					}
+
+
 		flags = {}
 		for f in self.flags: flags[f.user.username] = f.reason
 
-		data = {'author_name': self.author_name if self.author else '',
+		return {'author_name': self.author_name if self.author else '',
 				'permalink': self.permalink,
 				'shortlink': self.shortlink,
 				'is_banned': bool(self.is_banned),
@@ -249,33 +268,6 @@ class Submission(Base):
 				'club': self.club,
 				}
 
-		if self.ban_reason:
-			data["ban_reason"]=self.ban_reason
-
-		return data
-
-	@property
-	@lazy
-	def json_core(self):
-
-		if self.is_banned:
-			return {'is_banned': True,
-					'deleted_utc': self.deleted_utc,
-					'ban_reason': self.ban_reason,
-					'id': self.id,
-					'title': self.title,
-					'permalink': self.permalink,
-					}
-		elif self.deleted_utc:
-			return {'is_banned': bool(self.is_banned),
-					'deleted_utc': True,
-					'id': self.id,
-					'title': self.title,
-					'permalink': self.permalink,
-					}
-
-		return self.json_raw
-
 	@property
 	@lazy
 	def json(self):
@@ -288,7 +280,7 @@ class Submission(Base):
 		data["author"]='👻' if self.ghost else self.author.json_core
 		data["comment_count"]=self.comment_count
 
-	
+
 		if "replies" in self.__dict__:
 			data["replies"]=[x.json_core for x in self.replies]
 
