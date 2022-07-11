@@ -464,7 +464,7 @@
 								<label class="text-black w-lg-25">Pronouns</label>
 
 								<div class="w-lg-100">
-									<form id="profile-settings" action="/settings/pronoun_change" method="post">
+									<form id="profile-settings" action="/settings/pronouns_change" method="post">
 										<input type="hidden" name="formkey" value="{{v.formkey}}">
 										<input maxlength=9 autocomplete="off" id="pronounbody" type="text" name="pronouns" class="form-control" placeholder='Enter pronouns here' value="{% if v.pronouns %}{{v.pronouns}}{% endif %}">
 										<div class="d-flex mt-2">
