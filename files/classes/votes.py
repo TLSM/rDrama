@@ -27,22 +27,13 @@ class Vote(Base):
 
 	@property
 	@lazy
-	def json_core(self):
-		data={
-			"user_id": self.user_id,
-			"submission_id":self.submission_id,
-			"vote_type":self.vote_type
-			}
-		return data
-
-	@property
-	@lazy
 	def json(self):
-		data=self.json_core
-		data["user"]=self.user.json_core
-		data["post"]=self.post.json_core
-	
-		return data
+		return {"user_id": self.user_id,
+			"submission_id":self.submission_id,
+			"vote_type":self.vote_type,
+			"user":self.user.json,
+			"post":self.post.json
+			}
 
 class CommentVote(Base):
 
@@ -66,19 +57,10 @@ class CommentVote(Base):
 
 	@property
 	@lazy
-	def json_core(self):
-		data={
-			"user_id": self.user_id,
-			"comment_id":self.comment_id,
-			"vote_type":self.vote_type
-			}
-		return data
-
-	@property
-	@lazy
 	def json(self):
-		data=self.json_core
-		data["user"]=self.user.json_core
-		data["comment"]=self.comment.json_core
-	
-		return data
+		return {"user_id": self.user_id,
+			"submission_id":self.submission_id,
+			"vote_type":self.vote_type,
+			"user":self.user.json,
+			"comment":self.comment.json
+			}

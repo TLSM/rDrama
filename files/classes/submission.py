@@ -216,7 +216,7 @@ class Submission(Base):
 
 	@property
 	@lazy
-	def json_core(self):
+	def json(self):
 
 		if self.is_banned:
 			return {'is_banned': True,
@@ -239,7 +239,7 @@ class Submission(Base):
 		flags = {}
 		for f in self.flags: flags[f.user.username] = f.reason
 
-		return {'author_name': self.author_name if self.author else '',
+		data = {'author_name': self.author_name if self.author else '',
 				'permalink': self.permalink,
 				'shortlink': self.shortlink,
 				'is_banned': bool(self.is_banned),
@@ -266,26 +266,13 @@ class Submission(Base):
 				'voted': self.voted if hasattr(self, 'voted') else 0,
 				'flags': flags,
 				'club': self.club,
+				'author': '👻' if self.ghost else self.author.json,
+				'comment_count': self.comment_count,
+				'voted': self.voted
 				}
-
-	@property
-	@lazy
-	def json(self):
-
-		data=self.json_core
-		
-		if self.deleted_utc or self.is_banned:
-			return data
-
-		data["author"]='👻' if self.ghost else self.author.json_core
-		data["comment_count"]=self.comment_count
-
 
 		if "replies" in self.__dict__:
 			data["replies"]=[x.json for x in self.replies]
-
-		if "voted" in self.__dict__:
-			data["voted"] = self.voted
 
 		return data
 

@@ -620,8 +620,7 @@ class User(Base):
 
 	@property
 	@lazy
-	def json_core(self):
-
+	def json(self):
 		if self.is_suspended:
 			return {'username': self.username,
 					'url': self.url,
@@ -642,21 +641,13 @@ class User(Base):
 				'bannerurl': self.banner_url,
 				'bio': self.bio,
 				'bio_html': self.bio_html_eager,
-				'flair': self.customtitle
+				'flair': self.customtitle,
+				'badges': [x.json for x in self.badges],
+				'coins': self.coins,
+				'post_count': self.post_count,
+				'comment_count': self.comment_count
 				}
 
-
-	@property
-	@lazy
-	def json(self):
-		data = self.json_core
-
-		data["badges"] = [x.json for x in self.badges]
-		data['coins'] = self.coins
-		data['post_count'] = self.post_count
-		data['comment_count'] = self.comment_count
-
-		return data
 
 
 	def ban(self, admin=None, reason=None, days=0):

@@ -248,8 +248,7 @@ class Comment(Base):
 		return len([x for x in self.awards if x.kind == kind])
 
 	@property
-	@lazy
-	def json_core(self):
+	def json(self):
 		if self.is_banned:
 			data= {'is_banned': True,
 					'ban_reason': self.ban_reason,
@@ -290,28 +289,11 @@ class Comment(Base):
 				'downvotes': self.downvotes,
 				'is_bot': self.is_bot,
 				'flags': flags,
+				'author': '👻' if self.ghost else self.author.json,
+				'replies': [x.json for x in self.replies()]
 				}
 
-
 		if self.level >= 2: data['parent_comment_id'] = self.parent_comment_id
-		
-		return data
-
-	@property
-	def json(self):
-	
-		data=self.json_core
-
-		if self.deleted_utc or self.is_banned:
-			return data
-
-		data["author"]='👻' if self.ghost else self.author.json_core
-		data["post"]=self.post.json_core if self.post else ''
-
-		if self.level >= 2:
-			data["parent"]=self.parent.json_core
-
-		data['replies'] = [x.json_core for x in self.replies()]
 
 		return data
 
