@@ -892,7 +892,7 @@ def settings_pronouns_change(v):
 		return render_template("settings_profile.html", v=v, error="You didn't change anything")
 
 	if not pronouns_regex.fullmatch(pronouns):
-		return render_template("settings_profile.html", v=v, error="The pronouns you entered don't match the required format {1-5 characters}/{1-5 characters}")
+		return render_template("settings_profile.html", v=v, error="The pronouns you entered don't match the required format {2-5 characters}/{2-5 characters}")
 
 	v.pronouns = pronouns
 	g.db.add(v)
