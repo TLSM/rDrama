@@ -161,6 +161,7 @@ SNAPPY_ID = 2
 LONGPOSTBOT_ID = 3
 ZOZBOT_ID = 4
 BASEDBOT_ID = 0
+BBBB_ID = 0
 
 SCHIZO_ID = 0
 A_ID = 0
@@ -202,6 +203,7 @@ if SITE in {'rdrama.net', 'devrama.xyz', 'deuxrama.net'}:
 	SNAPPY_ID = 261
 	LONGPOSTBOT_ID = 1832
 	ZOZBOT_ID = 1833
+	BBBB_ID = 12125
 
 	SCHIZO_ID = 8494
 	A_ID = 1230
