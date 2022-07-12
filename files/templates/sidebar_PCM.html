@@ -1,8 +1,8 @@
 <div class="col sidebar text-left {% if '/sidebar' not in request.path %}d-none d-lg-block{% endif %} pt-3 bg-white" style="max-width:300px">
 
-	<p class="text-center text-md mb-4 d-md-none">
+	<p class="text-center text-md mb-4">
 		{% if v and v.can_gamble and LOTTERY_ENABLED -%}
-		<a class="sidebar-link" href="/lottery" data-bs-toggle="tooltip" data-bs-placement="top" title="Lottery"><i class="fas fa-ticket"></i></a>
+			<a class="sidebar-link" href="/lottery" data-bs-toggle="tooltip" data-bs-placement="top" title="Lottery"><i class="fas fa-ticket"></i></a>
 		{%- endif %}
 		<a class="sidebar-link" href="/log" data-bs-toggle="tooltip" data-bs-placement="top" title="Moderation Log"><i class="fas fa-scroll-old"></i></a>
 		<a class="sidebar-link" href="/transfers" data-bs-toggle="tooltip" data-bs-placement="top" title="Transfers"><i class="fas fa-arrow-right-arrow-left"></i></a>
