@@ -3,6 +3,7 @@ from files.helpers.wrappers import *
 from files.helpers.alerts import *
 from files.helpers.get import *
 from files.helpers.const import *
+from files.helpers.regex import *
 from files.helpers.discord import *
 from files.helpers.actions import *
 from files.classes.award import *
@@ -230,6 +231,7 @@ def award_thing(v, thing_type, id):
 			author.flairchanged += 86400
 		else:
 			author.customtitleplain = new_name
+			new_name = censor_slurs(new_name, None)
 			author.customtitle = filter_emojis_only(new_name)
 			if len(author.customtitle) > 1000: abort(403)
 			author.flairchanged = int(time.time()) + 86400

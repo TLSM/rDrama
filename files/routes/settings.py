@@ -872,6 +872,8 @@ def settings_title_change(v):
 
 	v.customtitleplain = new_name
 
+	new_name = censor_slurs(new_name, None)
+
 	v.customtitle = filter_emojis_only(new_name)
 
 	if len(v.customtitle) < 1000:
