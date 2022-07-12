@@ -636,7 +636,7 @@
 						{% endif %}
 				
 						{% if p.bannedfor %}
-							<i class="fas fa-hammer-crash text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="User was banned for this post for {{p.bannedfor}}"></i>
+							<i class="fas fa-hammer-crash text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="User was banned for this post {{p.bannedfor}}"></i>
 						{% endif %}
 
 						{% for a in p.awards %}

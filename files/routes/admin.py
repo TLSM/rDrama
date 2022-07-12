@@ -146,41 +146,6 @@ def merge_all(v, id):
 	return redirect(user.url)
 
 
-
-if SITE_NAME == 'PCM':
-	@app.get('/admin/sidebar')
-	@admin_level_required(3)
-	def get_sidebar(v):
-
-		try:
-			with open(f'files/templates/sidebar_{SITE_NAME}.html', 'r', encoding="utf-8") as f: sidebar = f.read()
-		except:
-			sidebar = None
-
-		return render_template('admin/sidebar.html', v=v, sidebar=sidebar)
-
-
-	@app.post('/admin/sidebar')
-	@limiter.limit("1/second;30/minute;200/hour;1000/day")
-	@admin_level_required(3)
-	def post_sidebar(v):
-
-		text = request.values.get('sidebar', '').strip()
-
-		with open(f'files/templates/sidebar_{SITE_NAME}.html', 'w+', encoding="utf-8") as f: f.write(text)
-
-		with open(f'files/templates/sidebar_{SITE_NAME}.html', 'r', encoding="utf-8") as f: sidebar = f.read()
-
-		ma = ModAction(
-			kind="change_sidebar",
-			user_id=v.id,
-		)
-		g.db.add(ma)
-
-
-		return render_template('admin/sidebar.html', v=v, sidebar=sidebar, msg='Sidebar edited successfully!')
-
-
 @app.post("/@<username>/make_admin")
 @admin_level_required(3)
 def make_admin(v, username):
@@ -290,6 +255,7 @@ def revert_actions(v, username):
 	for item in posts + comments:
 		item.is_banned = False
 		item.ban_reason = None
+		item.is_approved = v.id
 		g.db.add(item)
 
 	users = (x[0] for x in g.db.query(ModAction.target_user_id).filter(ModAction.user_id == user.id, ModAction.created_utc > cutoff, ModAction.kind.in_(('shadowban', 'ban_user'))).all())
@@ -1049,9 +1015,9 @@ def ban_user(user_id, v):
 
 	send_repeatable_notification(user.id, text)
 	
-	if days == 0: duration = "permanent"
-	elif days == 1: duration = "1 day"
-	else: duration = f"{days} days"
+	if days == 0: duration = "permanently"
+	elif days == 1: duration = "for 1 day"
+	else: duration = f"for {days} days"
 
 	note = f'reason: "{reason}", duration: {duration}'
 	ma=ModAction(
@@ -1523,6 +1489,7 @@ def admin_nunuke_user(v):
 			
 		post.is_banned = False
 		post.ban_reason = None
+		post.is_approved = v.id
 		g.db.add(post)
 
 	for comment in g.db.query(Comment).filter_by(author_id=user.id).all():
@@ -1531,6 +1498,7 @@ def admin_nunuke_user(v):
 
 		comment.is_banned = False
 		comment.ban_reason = None
+		comment.is_approved = v.id
 		g.db.add(comment)
 
 	ma=ModAction(

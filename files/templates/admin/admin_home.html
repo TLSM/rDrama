@@ -61,16 +61,10 @@
 	<li><a href="/daily_chart">Daily Stat Chart</a></li>
 </ul>
 
-{% if SITE_NAME in ['PCM', 'WPD'] -%}
-	<h4>Configuration</h4>
-	<ul>
-		{% if SITE_NAME == 'PCM' -%}
-			<li><a href="/admin/sidebar">Edit Sidebar</a></li>
-		{%- elif SITE_NAME == 'WPD' -%}
-			<li><a href="/create_hole">Create {{ HOLE_NAME | capitalize }}</a></li>
-		{%- endif %}
-	</ul>
-{%- endif %}
+<h4>Configuration</h4>
+<ul>
+	<li><a href="/create_hole">Create {{ HOLE_NAME | capitalize }}</a></li>
+</ul>
 
 {% if v.admin_level > 2 %}
 	<pre></pre>
