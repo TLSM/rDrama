@@ -280,13 +280,6 @@
 			<a href="{{sub.banner_url}}">
 				<img alt="/h/{{sub.name}} banner" role="button" onclick="expandDesktopImage()" loading="lazy" src="{{sub.banner_url}}" width=100% style="object-fit:cover;max-height:min(42vh,30vw)!important">
 			</a>
-		{% elif SITE_NAME == 'Deuxrama' %}
-			{% set path = "assets/images/" + SITE_NAME + "/banners" %}
-			{% set image = "/" + path + "/" + listdir('files/' + path)|random() + '?v=25' %}
-
-			<a href="https://secure.winred.com/save-america-joint-fundraising-committee/early-renewal-founding-membership">
-				<img alt="site banner" src="{{image}}" width="100%">
-			</a>
 		{% elif SITE_NAME == 'rDrama' %}
 			<a href="https://secure.transequality.org/site/Donation2?df_id=1480">
 				{% if v and (v.is_banned or v.agendaposter) %}
