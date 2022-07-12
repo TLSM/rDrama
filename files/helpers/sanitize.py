@@ -228,6 +228,12 @@ def sanitize(sanitized, edit=False):
 
 	for tag in soup.find_all("img"):
 		if tag.get("src") and not tag["src"].startswith('/pp/'):
+			if not is_safe_url(tag["src"]):
+				a = soup.new_tag("a", href=tag["src"], rel="nofollow noopener noreferrer", target="_blank")
+				a.string = tag["src"]
+				tag.replace_with(a)
+				continue
+
 			tag["loading"] = "lazy"
 			tag["data-src"] = tag["src"]
 			tag["src"] = "/i/l.webp"
