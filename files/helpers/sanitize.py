@@ -209,7 +209,7 @@ def sanitize(sanitized, edit=False):
 
 	sanitized = sanitized.replace('‎','').replace('​','').replace("\ufeff", "").replace("𒐪","")
 
-	sanitized = reddit_regex.sub(r'\1<a href="https://old.reddit.com/\2" rel="nofollow noopener noreferrer">/\2</a>', sanitized)
+	sanitized = reddit_regex.sub(r'\1<a href="https://old.reddit.com/\2" rel="nofollow noopener noreferrer" target="_blank">/\2</a>', sanitized)
 	sanitized = sub_regex.sub(r'\1<a href="/\2">/\2</a>', sanitized)
 
 	matches = [ m for m in mention_regex.finditer(sanitized) if m ]
@@ -240,6 +240,7 @@ def sanitize(sanitized, edit=False):
 				a = soup.new_tag("a", href=tag["data-src"])
 				if not is_site_url(a["href"]):
 					a["rel"] = "nofollow noopener noreferrer"
+					a["target"] = "_blank"
 				tag = tag.replace_with(a)
 				a.append(tag)
 
