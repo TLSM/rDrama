@@ -4635,7 +4635,7 @@ textarea {
 }
 @media (min-width: 992px) {
 	.card-columns {
-		column-count: 7 !important;
+		column-count: 9 !important;
 	}
 	.directory--link {
 		width: 23%;
