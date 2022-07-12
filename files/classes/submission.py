@@ -267,8 +267,7 @@ class Submission(Base):
 				'flags': flags,
 				'club': self.club,
 				'author': '👻' if self.ghost else self.author.json,
-				'comment_count': self.comment_count,
-				'voted': self.voted
+				'comment_count': self.comment_count
 				}
 
 		if "replies" in self.__dict__:
