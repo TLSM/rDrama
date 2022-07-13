@@ -1263,3 +1263,12 @@ def fp(v, fp):
 		print(v.username + ' + ' + u.username, flush=True)
 	g.db.add(v)
 	return '', 204
+
+@app.get("/toggle_pins")
+def toggle_pins():
+	pins = session.get("pins", True)
+	session['pins'] = not pins
+	if is_site_url(request.referrer):
+		return redirect(request.referrer)
+
+	return redirect('/')

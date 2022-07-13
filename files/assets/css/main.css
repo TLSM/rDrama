@@ -6063,3 +6063,15 @@ g {
     border: 2px solid var(--primary);
 	font-size: 20px;
 }
+
+@media (max-width: 370px) {
+	.smol-fp {
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 345px) {
+	.smol-fp {
+		font-size: 0.7rem;
+	}
+}

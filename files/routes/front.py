@@ -51,6 +51,8 @@ def front_all(v, sub=None, subdomain=None):
 	try: lt=int(request.values.get("before", 0))
 	except: lt=0
 
+	pins = session.get("pins", True)
+
 	ids, next_exists = frontlist(sort=sort,
 					page=page,
 					t=t,
@@ -60,7 +62,8 @@ def front_all(v, sub=None, subdomain=None):
 					gt=gt,
 					lt=lt,
 					sub=sub,
-					site=SITE
+					site=SITE,
+					pins=pins
 					)
 
 	posts = get_posts(ids, v=v)
@@ -70,12 +73,12 @@ def front_all(v, sub=None, subdomain=None):
 		award_timers(v)
 
 	if request.headers.get("Authorization"): return {"data": [x.json for x in posts], "next_exists": next_exists}
-	return render_template("home.html", v=v, listing=posts, next_exists=next_exists, sort=sort, t=t, page=page, ccmode=ccmode, sub=sub, home=True)
+	return render_template("home.html", v=v, listing=posts, next_exists=next_exists, sort=sort, t=t, page=page, ccmode=ccmode, sub=sub, home=True, pins=pins)
 
 
 
 @cache.memoize(timeout=86400)
-def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false", filter_words='', gt=0, lt=0, sub=None, site=None):
+def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false", filter_words='', gt=0, lt=0, sub=None, site=None, pins=True):
 
 	posts = g.db.query(Submission)
 	
@@ -97,7 +100,7 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 
 	posts = posts.filter_by(is_banned=False, private=False, deleted_utc = 0)
 
-	if (sort == "hot" or (v and v.id == Q_ID)) and ccmode == "false" and not gt and not lt:
+	if pins and ccmode == "false" and not gt and not lt:
 		posts = posts.filter_by(stickied=None, hole_pinned=None)
 
 	if v:
@@ -137,7 +140,7 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 
 	posts = posts[:size]
 
-	if (sort == "hot" or (v and v.id == Q_ID)) and page == 1 and ccmode == "false" and not gt and not lt:
+	if pins and page == 1 and ccmode == "false" and not gt and not lt:
 		if sub:
 			pins = g.db.query(Submission).filter(Submission.sub == sub.name, Submission.hole_pinned != None)
 		else:

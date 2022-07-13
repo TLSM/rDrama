@@ -177,7 +177,6 @@ AEVANN_ID = 5
 SNAKES_ID = 0
 HOMO_ID = 0
 SOREN_ID = 0
-Q_ID = 0
 LAWLZ_ID = 0
 LLM_ID = 0
 DAD_ID = 0
@@ -237,7 +236,6 @@ if SITE in {'rdrama.net', 'devrama.xyz', 'deuxrama.net'}:
 	SNAKES_ID = 10288
 	HOMO_ID = 147
 	SOREN_ID = 2546
-	Q_ID = 1480
 	LAWLZ_ID = 3833
 	LLM_ID = 253
 	DAD_ID = 2513

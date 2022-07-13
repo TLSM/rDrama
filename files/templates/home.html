@@ -38,18 +38,24 @@
 					<a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Catalog View" class="btn btn-secondary mx-2 d-none d-md-block" href="/catalog?sort={{sort}}&t={{t}}&ccmode=false"><i class="fas fa-columns-3 mr-2 "></i>Catalog</a>
 				{% endif %}
 
+				{% if pins %}
+					<a class="btn btn-primary text-primary mx-2 smol-fp" href="/toggle_pins"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
+				{% else %}
+					<a class="btn btn-secondary mx-2 smol-fp" href="/toggle_pins"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
+				{% endif %}
+
 				{% if v and SITE_NAME == 'rDrama' %}
 					{% if v.paid_dues %}
-						{% if ccmode=="true"%}
-							<a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only show country club posts" class="btn btn-primary text-primary mx-2" href="?sort={{sort}}&t={{t}}&ccmode=false"><i class="fas fa-golf-club mr-2 "></i>CC</a>
+						{% if ccmode=="true" %}
+							<a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only show country club posts" class="btn btn-primary text-primary mx-2 smol-fp" href="?sort={{sort}}&t={{t}}&ccmode=false"><i class="fas fa-golf-club mr-2 "></i>CC</a>
 						{% else %}
-							<a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only show country club posts" class="btn btn-secondary mx-2" href="?sort={{sort}}&t={{t}}&ccmode=true"><i class="fas fa-golf-club mr-2 "></i>CC</a>
+							<a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only show country club posts" class="btn btn-secondary mx-2 smol-fp" href="?sort={{sort}}&t={{t}}&ccmode=true"><i class="fas fa-golf-club mr-2 "></i>CC</a>
 						{% endif %}
 					{% endif %}
 				{% endif %}
 
 				<div class="dropdown dropdown-actions mx-2">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<button class="btn btn-secondary dropdown-toggle smol-fp" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						{% if t=="hour" %}<i class="fas fa-clock mr-2 "></i>
 						{% elif t=="day" %}<i class="fas fa-calendar-day mr-2 "></i>
 						{% elif t=="week" %}<i class="fas fa-calendar-week mr-2 "></i>
@@ -59,7 +65,7 @@
 						{% endif %}
 						{{t | capitalize}}
 					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px;">
+					<div class="dropdown-menu smol-fp" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px;">
 						{% if t != "hour" %}<a class="dropdown-item" href="?sort={{sort}}&t=hour&ccmode={{ccmode}}"><i class="fas fa-clock mr-2 "></i>Hour</a>{% endif %}
 						{% if t != "day" %}<a class="dropdown-item" href="?sort={{sort}}&t=day&ccmode={{ccmode}}"><i class="fas fa-calendar-day mr-2 "></i>Day</a>{% endif %}
 						{% if t != "week" %}<a class="dropdown-item" href="?sort={{sort}}&t=week&ccmode={{ccmode}}"><i class="fas fa-calendar-week mr-2 "></i>Week</a>{% endif %}
@@ -70,7 +76,7 @@
 				</div>
 
 				<div class="dropdown dropdown-actions ml-2">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<button class="btn btn-secondary dropdown-toggle smol-fp" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						{% if sort=="hot" %}<i class="fas fa-fire mr-2 "></i>{% endif %}
 						{% if sort=="warm" %}<i class="fas fa-fire mr-2 "></i>{% endif %}
 						{% if sort=="bump" %}<i class="fas fa-arrow-up mr-2 "></i>{% endif %}
@@ -82,7 +88,7 @@
 						{% if sort=="comments" %}<i class="fas fa-comments mr-2 "></i>{% endif %}
 						{{sort | capitalize}}
 					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px;">
+					<div class="dropdown-menu smol-fp" aria-labelledby="dropdownMenuButton2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px;">
 						{% if sort != "hot" %}<a class="dropdown-item" href="?sort=hot&t={{t}}&ccmode={{ccmode}}"><i class="fas fa-fire mr-2 "></i>Hot</a>{% endif %}
 						{% if sort != "warm" %}<a class="dropdown-item" href="?sort=warm&t={{t}}&ccmode={{ccmode}}"><i class="fas fa-fire mr-2 "></i>Warm</a>{% endif %}
 						{% if sort != "bump" %}<a class="dropdown-item" href="?sort=bump&t={{t}}&ccmode={{ccmode}}"><i class="fas fa-arrow-up mr-2 "></i>Bump</a>{% endif %}
