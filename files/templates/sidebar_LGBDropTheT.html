@@ -10,7 +10,7 @@
 		<img class="mb-4" alt="sidebar image" role="button" onclick="expandDesktopImage()" loading="lazy" src="{{image}}" width=100%>
 	</a>
 
-	{% if g.loggedout_counter+g.loggedin_counter > 100 %}
+	{% if g.loggedin_counter and g.loggedin_counter+g.loggedout_counter > 100 %}
 		<p class="mt-1 ml-2 mb-4 text-center">
 			<span id="sidebar--counter--total">{{ g.loggedin_counter + g.loggedout_counter }}</span>
 			<span id="sidebar--counter--flavor"> people here now</span>
