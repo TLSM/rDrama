@@ -39,9 +39,9 @@
 				{% endif %}
 
 				{% if pins %}
-					<a class="btn btn-primary text-primary mx-2 smol-fp" href="/toggle_pins"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
+					<a class="btn btn-primary text-primary mx-2 smol-fp" href="/toggle_pins/{{sort}}"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
 				{% else %}
-					<a class="btn btn-secondary mx-2 smol-fp" href="/toggle_pins"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
+					<a class="btn btn-secondary mx-2 smol-fp" href="/toggle_pins/{{sort}}"><i class="fas fas fa-thumbtack fa-rotate--45 mr-2 "></i>Pins</a>
 				{% endif %}
 
 				{% if v and SITE_NAME == 'rDrama' %}

@@ -1264,11 +1264,14 @@ def fp(v, fp):
 	g.db.add(v)
 	return '', 204
 
-@app.get("/toggle_pins")
-def toggle_pins():
-	pins = session.get("pins", True)
-	session['pins'] = not pins
+@app.get("/toggle_pins/<sort>")
+def toggle_pins(sort):
+	if sort == 'hot': default = True
+	else: default = False
+
+	pins = session.get(sort, default)
+	session[sort] = not pins
+
 	if is_site_url(request.referrer):
 		return redirect(request.referrer)
-
 	return redirect('/')

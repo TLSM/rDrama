@@ -51,7 +51,10 @@ def front_all(v, sub=None, subdomain=None):
 	try: lt=int(request.values.get("before", 0))
 	except: lt=0
 
-	pins = session.get("pins", True)
+	if sort == 'hot': default = True
+	else: default = False
+
+	pins = session.get(sort, default)
 
 	ids, next_exists = frontlist(sort=sort,
 					page=page,
