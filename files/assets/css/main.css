@@ -6049,8 +6049,9 @@ g {
 }
 
 .showmore {
-    width: 100%;
+    width: 99%;
 	padding: 5px;
+	margin: 0 1px;
 	border-radius: 5px;
 	color:white!important;
 	background: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);
