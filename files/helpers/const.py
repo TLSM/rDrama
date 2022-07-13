@@ -275,6 +275,7 @@ elif SITE == 'pcmemes.net':
 
 	KIPPY_ID = 1592
 	GIFT_NOTIF_ID = 1592
+	CARP_ID = 13
 	AEVANN_ID = 1
 	SNAKES_ID = 2279
 
@@ -293,8 +294,8 @@ elif SITE == 'cringetopia.org':
 	LONGPOSTBOT_ID = 4
 	ZOZBOT_ID = 5
 
-	GIFT_NOTIF_ID = 18
-	CARP_ID = 18
+	GIFT_NOTIF_ID = 9
+	CARP_ID = 43
 	AEVANN_ID = 9
 	SNAKES_ID = 3284
 
@@ -327,7 +328,7 @@ elif SITE == 'watchpeopledie.co':
 	ZOZBOT_ID = 5
 
 	GIFT_NOTIF_ID = 9
-	CARP_ID = 9
+	CARP_ID = 48
 	AEVANN_ID = 9
 	SNAKES_ID = 32
 elif SITE == 'lgbdropthet.com':
@@ -346,6 +347,7 @@ elif SITE == 'lgbdropthet.com':
 	LONGPOSTBOT_ID = 4
 	ZOZBOT_ID = 5
 
+	CARP_ID = 17
 	AEVANN_ID = 10
 	SNAKES_ID = 9
 

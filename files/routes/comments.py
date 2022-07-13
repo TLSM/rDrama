@@ -362,6 +362,8 @@ def api_comment(v):
 		v.shadowbanned = 'AutoJanny'
 		notif = Notification(comment_id=c.id, user_id=CARP_ID)
 		g.db.add(notif)
+		notif = Notification(comment_id=c.id, user_id=AEVANN_ID)
+		g.db.add(notif)
 
 	if c.level == 1: c.top_comment_id = c.id
 	else: c.top_comment_id = parent.top_comment_id
@@ -731,6 +733,10 @@ def edit_comment(cid, v):
 			notif = g.db.query(Notification).filter_by(comment_id=c.id, user_id=CARP_ID).one_or_none()
 			if not notif:
 				notif = Notification(comment_id=c.id, user_id=CARP_ID)
+				g.db.add(notif)
+			notif = g.db.query(Notification).filter_by(comment_id=c.id, user_id=AEVANN_ID).one_or_none()
+			if not notif:
+				notif = Notification(comment_id=c.id, user_id=AEVANN_ID)
 				g.db.add(notif)
 
 		if v.agendaposter and not v.marseyawarded and AGENDAPOSTER_PHRASE not in c.body.lower() and not c.is_banned:
