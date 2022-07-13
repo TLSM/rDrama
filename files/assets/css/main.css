@@ -5328,7 +5328,7 @@ th, td {
 	color: green !important;
 }
 
-#profile--bio a {
+#profile--bio a, #profile-mobile--bio a {
 	overflow-wrap: break-word;
 }
 
