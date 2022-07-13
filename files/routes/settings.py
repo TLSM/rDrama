@@ -19,7 +19,7 @@ import tldextract
 
 @app.post("/settings/removebackground")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def removebackground(v):
 	v.background = None
@@ -28,7 +28,7 @@ def removebackground(v):
 
 @app.post("/settings/profile")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_profile_post(v):
 	updated = False
@@ -310,7 +310,7 @@ def changelogsub(v):
 
 @app.post("/settings/namecolor")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def namecolor(v):
 
@@ -326,7 +326,7 @@ def namecolor(v):
 	
 @app.post("/settings/themecolor")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def themecolor(v):
 
@@ -342,7 +342,7 @@ def themecolor(v):
 
 @app.post("/settings/gumroad")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def gumroad(v):
 	if not (v.email and v.is_activated):
@@ -379,7 +379,7 @@ def gumroad(v):
 
 @app.post("/settings/titlecolor")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def titlecolor(v):
 
@@ -394,7 +394,7 @@ def titlecolor(v):
 
 @app.post("/settings/verifiedcolor")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def verifiedcolor(v):
 	verifiedcolor = str(request.values.get("verifiedcolor", "")).strip()
@@ -406,7 +406,7 @@ def verifiedcolor(v):
 
 @app.post("/settings/security")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_security_post(v):
 	if request.values.get("new_password"):
@@ -487,7 +487,7 @@ def settings_security_post(v):
 
 @app.post("/settings/log_out_all_others")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_log_out_others(v):
 
@@ -508,7 +508,7 @@ def settings_log_out_others(v):
 
 @app.post("/settings/images/profile")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_images_profile(v):
 	if request.headers.get("cf-ipcountry") == "T1": return {"error":"Image uploads are not allowed through TOR."}, 403
@@ -543,7 +543,7 @@ def settings_images_profile(v):
 
 @app.post("/settings/images/banner")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_images_banner(v):
 	if request.headers.get("cf-ipcountry") == "T1": return {"error":"Image uploads are not allowed through TOR."}, 403
@@ -578,7 +578,7 @@ def settings_css_get(v):
 
 @app.post("/settings/css")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_css(v):
 	if v.agendaposter: return {"error": "Agendapostered users can't edit css!"}
@@ -600,7 +600,7 @@ def settings_profilecss_get(v):
 
 @app.post("/settings/profilecss")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_profilecss(v):
 	profilecss = request.values.get("profilecss").strip().replace('\\', '').strip()[:4000]
@@ -620,7 +620,7 @@ def settings_profilecss(v):
 
 @app.post("/settings/block")
 @limiter.limit("1/second;10/day")
-@limiter.limit("1/second;10/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;10/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_block_user(v):
 
@@ -657,7 +657,7 @@ def settings_block_user(v):
 
 @app.post("/settings/unblock")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_unblock_user(v):
 
@@ -687,7 +687,7 @@ def settings_apps(v):
 
 @app.post("/settings/remove_discord")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_remove_discord(v):
 
@@ -707,7 +707,7 @@ def settings_content_get(v):
 
 @app.post("/settings/name_change")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def settings_name_change(v):
 
@@ -753,7 +753,7 @@ def settings_name_change(v):
 
 @app.post("/settings/song_change_mp3")
 @limiter.limit("3/second;10/day")
-@limiter.limit("3/second;10/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("3/second;10/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_song_change_mp3(v):
 
@@ -783,7 +783,7 @@ def settings_song_change_mp3(v):
 
 @app.post("/settings/song_change")
 @limiter.limit("3/second;10/day")
-@limiter.limit("3/second;10/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("3/second;10/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_song_change(v):
 	song=request.values.get("song").strip()
@@ -860,7 +860,7 @@ def settings_song_change(v):
 
 @app.post("/settings/title_change")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_title_change(v):
 
@@ -884,7 +884,7 @@ def settings_title_change(v):
 
 @app.post("/settings/pronouns_change")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_pronouns_change(v):
 	
@@ -904,7 +904,7 @@ def settings_pronouns_change(v):
 
 @app.post("/settings/checkmark_text")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def settings_checkmark_text(v):
 

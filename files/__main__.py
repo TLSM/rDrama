@@ -83,7 +83,7 @@ def before_request():
 	with open('site_settings.json', 'r', encoding='utf_8') as f:
 		app.config['SETTINGS'] = json.load(f)
 
-	if request.host != app.config["SERVER_NAME"]: return {"error":"Unauthorized host provided."}, 401
+	if SITE != app.config["SERVER_NAME"]: return {"error":"Unauthorized host provided."}, 401
 	if request.headers.get("CF-Worker"): return {"error":"Cloudflare workers are not allowed to access this website."}, 401
 
 	if not app.config['SETTINGS']['Bots'] and request.headers.get("Authorization"): abort(503)

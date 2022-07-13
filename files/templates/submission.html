@@ -524,7 +524,7 @@
 	<meta property="og:audio" content="{{p.realurl(v)}}">
 {% endif %}
 <meta property="og:url" content="{{comment_info.permalink}}">
-<meta property="og:site_name" content="{{request.host}}">
+<meta property="og:site_name" content="{{SITE}}">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="{{SITE_FULL}}">
@@ -548,7 +548,7 @@
 <meta property="og:image" content="{% if p.is_image %}{{p.realurl(v)}}{% elif p.has_thumb%}{{p.thumb_url}}{% else %}{{SITE}}{{asset_siteimg('site_preview.webp')}}{% endif %}">
 <meta property="og:url" content="{{p.permalink}}">
 {%- endif %}
-<meta property="og:site_name" content="{{request.host}}">
+<meta property="og:site_name" content="{{SITE}}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="{{SITE_FULL}}">
@@ -601,7 +601,7 @@
 
 {% block content %}
 
-{% if request.host == 'pcmemes.net' %}
+{% if SITE == 'pcmemes.net' %}
 	{% set cc='SPLASH MOUNTAIN' %}
 {% else %}
 	{% set cc='COUNTRY CLUB' %}

@@ -373,7 +373,7 @@ def downvoting(v, username):
 
 @app.post("/@<username>/suicide")
 @limiter.limit("1/second;5/day")
-@limiter.limit("1/second;5/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;5/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def suicide(v, username):
 	user = get_user(username)
@@ -392,7 +392,7 @@ def get_coins(v, username):
 
 @app.post("/@<username>/transfer_coins")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def transfer_coins(v, username):
 	receiver = get_user(username)
@@ -437,7 +437,7 @@ def transfer_coins(v, username):
 
 @app.post("/@<username>/transfer_bux")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def transfer_bux(v, username):
 	receiver = get_user(username)
@@ -499,7 +499,7 @@ def leaderboard(v):
 	sq = g.db.query(User.id, func.rank().over(order_by=User.received_award_count.desc()).label("rank")).subquery()
 	pos5 = g.db.query(sq.c.id, sq.c.rank).filter(sq.c.id == v.id).limit(1).one()[1]
 
-	if request.host == 'pcmemes.net':
+	if SITE == 'pcmemes.net':
 		users6 = users.order_by(User.basedcount.desc()).limit(25).all()
 		sq = g.db.query(User.id, func.rank().over(order_by=User.basedcount.desc()).label("rank")).subquery()
 		pos6 = g.db.query(sq.c.id, sq.c.rank).filter(sq.c.id == v.id).limit(1).one()[1]
@@ -603,7 +603,7 @@ def song(song):
 
 @app.post("/subscribe/<post_id>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def subscribe(v, post_id):
 	new_sub = Subscription(user_id=v.id, submission_id=post_id)
@@ -612,7 +612,7 @@ def subscribe(v, post_id):
 	
 @app.post("/unsubscribe/<post_id>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def unsubscribe(v, post_id):
 	sub=g.db.query(Subscription).filter_by(user_id=v.id, submission_id=post_id).one_or_none()
@@ -627,7 +627,7 @@ def reportbugs(v):
 
 @app.post("/@<username>/message")
 @limiter.limit("1/second;10/minute;20/hour;50/day")
-@limiter.limit("1/second;10/minute;20/hour;50/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;10/minute;20/hour;50/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def message2(v, username):
 	user = get_user(username, v=v)
@@ -687,7 +687,7 @@ def message2(v, username):
 
 
 	if PUSHER_ID != 'blahblahblah' and not v.shadowbanned:
-		interests = f'{request.host}{user.id}'
+		interests = f'{SITE}{user.id}'
 
 		title = f'New message from @{username}'
 
@@ -703,7 +703,7 @@ def message2(v, username):
 
 @app.post("/reply")
 @limiter.limit("1/second;6/minute;50/hour;200/day")
-@limiter.limit("1/second;6/minute;50/hour;200/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;6/minute;50/hour;200/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def messagereply(v):
 
@@ -765,7 +765,7 @@ def messagereply(v):
 				g.db.delete(n)
 
 		if PUSHER_ID != 'blahblahblah' and not v.shadowbanned:
-			interests = f'{request.host}{user_id}'
+			interests = f'{SITE}{user_id}'
 
 			title = f'New message from @{v.username}'
 
@@ -1070,7 +1070,7 @@ def u_user_id_info(id, v=None):
 
 @app.post("/follow/<username>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def follow_user(username, v):
 
@@ -1095,7 +1095,7 @@ def follow_user(username, v):
 
 @app.post("/unfollow/<username>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def unfollow_user(username, v):
 
@@ -1123,7 +1123,7 @@ def unfollow_user(username, v):
 
 @app.post("/remove_follow/<username>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def remove_follow(username, v):
 	target = get_user(username)

@@ -12,7 +12,7 @@
 		<meta name="author" content="">
 		<link rel="icon" type="image/webp" href="{{asset_siteimg('icon.webp')}}">
 
-		{% if request.host == 'pcmemes.net' %}
+		{% if SITE == 'pcmemes.net' %}
 			{% set cc='Splash Mountain' %}
 		{% else %}
 			{% set cc='Country Club' %}

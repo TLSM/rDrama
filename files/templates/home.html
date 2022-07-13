@@ -179,12 +179,12 @@
 {% endif %}
 
 {% if PUSHER_ID != 'blahblahblah' and v %}
-	<div class="d-none" id="strid">{{request.host}}{{v.id}}</div>
+	<div class="d-none" id="strid">{{SITE}}{{v.id}}</div>
 	<div class="d-none" id="pusherid">{{PUSHER_ID}}</div>
 	<script src="/assets/js/pusher.js?v=244"></script>
 	<script>
 		if (typeof Android != 'undefined') {
-			Android.Subscribe('{{request.host}}{{v.id}}');
+			Android.Subscribe('{{SITE}}{{v.id}}');
 		}
 	</script>
 {% endif %}

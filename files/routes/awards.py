@@ -103,7 +103,7 @@ def buy(v, award):
 
 @app.post("/award/<thing_type>/<id>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def award_thing(v, thing_type, id):
 
@@ -315,7 +315,7 @@ def award_thing(v, thing_type, id):
 @app.get("/admin/awards")
 @admin_level_required(2)
 def admin_userawards_get(v):
-	if request.host == 'pcmemes.net' and v.admin_level < 3: abort(403)
+	if SITE == 'pcmemes.net' and v.admin_level < 3: abort(403)
 
 	if v.admin_level != 3:
 		return render_template("admin/awards.html", awards=list(AWARDS3.values()), v=v)
@@ -326,7 +326,7 @@ def admin_userawards_get(v):
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
 @admin_level_required(2)
 def admin_userawards_post(v):
-	if request.host == 'pcmemes.net' and v.admin_level < 3: abort(403)
+	if SITE == 'pcmemes.net' and v.admin_level < 3: abort(403)
 
 	try: u = request.values.get("username").strip()
 	except: abort(404)

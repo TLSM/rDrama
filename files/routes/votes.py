@@ -59,7 +59,7 @@ def vote_info_get(v, link):
 
 @app.post("/vote/post/<post_id>/<new>")
 @limiter.limit("5/second;60/minute;1000/hour;2000/day")
-@limiter.limit("5/second;60/minute;1000/hour;2000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("5/second;60/minute;1000/hour;2000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def api_vote_post(post_id, new, v):
 
@@ -129,7 +129,7 @@ def api_vote_post(post_id, new, v):
 
 @app.post("/vote/comment/<comment_id>/<new>")
 @limiter.limit("5/second;60/minute;1000/hour;2000/day")
-@limiter.limit("5/second;60/minute;1000/hour;2000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("5/second;60/minute;1000/hour;2000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @is_not_permabanned
 def api_vote_comment(comment_id, new, v):
 

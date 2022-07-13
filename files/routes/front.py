@@ -117,7 +117,7 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 	if not (v and v.shadowbanned):
 		posts = posts.join(Submission.author).filter(User.shadowbanned == None)
 
-	if request.host == 'rdrama.net': num = 5
+	if SITE == 'rdrama.net': num = 5
 	else: num = 0.5
 
 	if sort == 'hot':

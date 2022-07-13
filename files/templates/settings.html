@@ -18,12 +18,12 @@
 	<title>{% block pagetitle %}Settings - {{SITE_NAME}}{% endblock %}</title>
 		<meta property="og:type" content="article">
 		<meta property="og:title" content="{{SITE_NAME}}">
-		<meta property="og:site_name" content="{{request.host}}">
+		<meta property="og:site_name" content="{{SITE}}">
 		<meta property="og:image" content="{{asset_siteimg('site_preview.webp')}}">
-		<meta property="og:url" content="{{request.host}}">
+		<meta property="og:url" content="{{SITE}}">
 		<meta property="og:description" name="description" content="{{SITE_NAME}} - {{DESCRIPTION}}">
 		<meta property="og:author" name="author" content="{{SITE_FULL}}">
-		<meta property="og:site_name" content="{{request.host}}">
+		<meta property="og:site_name" content="{{SITE}}">
 
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="{{SITE_FULL}}">
@@ -31,7 +31,7 @@
 		<meta name="twitter:creator" content="{{SITE_FULL}}">
 		<meta name="twitter:description" content="{{SITE_NAME}} - {{DESCRIPTION}}">
 		<meta name="twitter:image" content="{{asset_siteimg('site_preview.webp')}}">
-		<meta name="twitter:url" content="{{request.host}}">
+		<meta name="twitter:url" content="{{SITE}}">
 
 
 	<style>:root{--primary:#{{v.themecolor}}}</style>

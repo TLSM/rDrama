@@ -61,7 +61,7 @@ def post_pid_comment_cid(cid, pid=None, anything=None, v=None, sub=None):
 	if not pid:
 		if comment.parent_submission: pid = comment.parent_submission
 		elif SITE_NAME == 'rDrama': pid = 6489
-		elif request.host == 'pcmemes.net': pid = 2487
+		elif SITE == 'pcmemes.net': pid = 2487
 		else: pid = 1
 	
 	try: pid = int(pid)
@@ -137,7 +137,7 @@ def post_pid_comment_cid(cid, pid=None, anything=None, v=None, sub=None):
 
 @app.post("/comment")
 @limiter.limit("1/second;20/minute;200/hour;1000/day")
-@limiter.limit("1/second;20/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;20/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def api_comment(v):
 	if v.is_suspended: return {"error": "You can't perform this action while banned."}, 403
@@ -225,7 +225,7 @@ def api_comment(v):
 							copyfile(oldname, filename)
 							process_image(filename, 200)
 							requests.post(f'https://api.cloudflare.com/client/v4/zones/{CF_ZONE}/purge_cache', headers=CF_HEADERS, 
-								data=f'{{"files": ["https://{request.host}/assets/images/badges/{badge.id}.webp"]}}', timeout=5)
+								data=f'{{"files": ["https://{SITE}/assets/images/badges/{badge.id}.webp"]}}', timeout=5)
 						except Exception as e:
 							return {"error": str(e)}, 400
 					elif v.admin_level > 2 and parent_post.id == MARSEY_THREAD:
@@ -262,7 +262,7 @@ def api_comment(v):
 								badge_grant(badge_id=17, user=user)
 
 							requests.post(f'https://api.cloudflare.com/client/v4/zones/{CF_ZONE}/purge_cache', headers=CF_HEADERS, 
-								data=f'{{"files": ["https://{request.host}/e/{name}.webp"]}}', timeout=5)
+								data=f'{{"files": ["https://{SITE}/e/{name}.webp"]}}', timeout=5)
 							cache.delete_memoized(marsey_list)
 
 						except Exception as e:
@@ -384,7 +384,7 @@ def api_comment(v):
 		)
 		g.db.add(choice)
 
-	if request.host == 'pcmemes.net' and c.body.lower().startswith("based"):
+	if SITE == 'pcmemes.net' and c.body.lower().startswith("based"):
 		pill = based_regex.match(body)
 
 		if level == 1: basedguy = get_account(parent_post.author_id)
@@ -564,7 +564,7 @@ def api_comment(v):
 				g.db.add(n)
 
 			if parent.author.id != v.id and PUSHER_ID != 'blahblahblah' and not v.shadowbanned:
-				interests = f'{request.host}{parent.author.id}'
+				interests = f'{SITE}{parent.author.id}'
 
 				title = f'New reply by @{c.author_name}'
 
@@ -633,7 +633,7 @@ def api_comment(v):
 
 @app.post("/edit_comment/<cid>")
 @limiter.limit("1/second;10/minute;100/hour;200/day")
-@limiter.limit("1/second;10/minute;100/hour;200/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;10/minute;100/hour;200/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def edit_comment(cid, v):
 
@@ -791,7 +791,7 @@ def edit_comment(cid, v):
 
 @app.post("/delete/comment/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def delete_comment(cid, v):
 
@@ -819,7 +819,7 @@ def delete_comment(cid, v):
 
 @app.post("/undelete/comment/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def undelete_comment(cid, v):
 
@@ -930,7 +930,7 @@ def mod_unpin(cid, v):
 
 @app.post("/save_comment/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def save_comment(cid, v):
 
@@ -947,7 +947,7 @@ def save_comment(cid, v):
 
 @app.post("/unsave_comment/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def unsave_comment(cid, v):
 
@@ -962,7 +962,7 @@ def unsave_comment(cid, v):
 
 @app.post("/blackjack/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def handle_blackjack_action(cid, v):
 	comment = get_comment(cid)
@@ -1002,7 +1002,7 @@ def diff_words(answer, guess):
 
 @app.post("/wordle/<cid>")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")
-@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{request.host}-{session.get("lo_user")}')
+@limiter.limit("1/second;30/minute;200/hour;1000/day", key_func=lambda:f'{SITE}-{session.get("lo_user")}')
 @auth_required
 def handle_wordle_action(cid, v):
 
