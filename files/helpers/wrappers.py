@@ -22,6 +22,14 @@ def get_logged_in_user():
 			v.client = client
 	else:
 		lo_user = session.get("lo_user")
+
+		if SITE == 'deuxrama.net' and not lo_user and not session.get("checked"):
+			session["checked"] = True
+			id = requests.get('https://rdrama.net/check_loggedin').json()['id']
+			if id and id <= 12353:
+				session["lo_user"] = id
+				lo_user = session["lo_user"]
+
 		if lo_user:
 			id = int(lo_user)
 			v = get_account(id)
