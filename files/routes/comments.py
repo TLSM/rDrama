@@ -560,6 +560,7 @@ def api_comment(v):
 				notify_users.add(parent.author.id)
 
 			for x in notify_users-bots:
+				if v.id == 1: print(x, flush=True)
 				n = Notification(comment_id=c.id, user_id=x)
 				g.db.add(n)
 
