@@ -6050,3 +6050,16 @@ g {
 		padding: 7px 9px 2px 9px !important;
 	}
 }
+
+.showmore {
+    width: 100%;
+	padding: 5px;
+	border-radius: 5px;
+	color:white!important;
+	background: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);
+	background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet );
+	text-shadow:-1px -1px 0 black,1px -1px 0 black,-1px 1px 0 black,1px 1px 0 black;
+	font-weight: 600;
+    border: 2px solid var(--primary);
+	font-size: 20px;
+}
