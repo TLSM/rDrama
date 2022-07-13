@@ -102,7 +102,7 @@ search_token_regex = re.compile('"([^"]*)"|(\S+)', flags=re.A)
 
 git_regex = re.compile("ref: (refs/.+)", flags=re.A)
 
-pronouns_regex = re.compile("[a-z]{2,5}/[a-z]{2,5}", flags=re.A)
+pronouns_regex = re.compile("([a-z]{2,5}|i)/[a-z]{2,5}", flags=re.A)
 
 def sub_matcher(match, upper=False):
 	if match.group(0).startswith('<'):
