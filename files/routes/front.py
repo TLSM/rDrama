@@ -104,7 +104,8 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 	posts = posts.filter_by(is_banned=False, private=False, deleted_utc = 0)
 
 	if pins and ccmode == "false" and not gt and not lt:
-		posts = posts.filter_by(stickied=None, hole_pinned=None)
+		if sub: posts = posts.filter_by(hole_pinned=None)
+		else: posts = posts.filter_by(stickied=None)
 
 	if v:
 		posts = posts.filter(Submission.author_id.notin_(v.userblocks))
