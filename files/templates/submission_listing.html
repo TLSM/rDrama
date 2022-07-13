@@ -84,7 +84,7 @@
 	<div class="{% if p.unread %}unread{% endif %} d-flex flex-row-reverse flex-md-row flex-nowrap justify-content-end">
 
 		{% if not postembed %}
-			<div class="voting my-2 d-none d-md-block pr-2">
+			<div class="voting my-2 d-none d-md-flex pr-2">
 				{% if v and request.path.startswith('/@') and v.admin_level < 2 %}
 					<div tabindex="0" role="button" onclick="vote('post', '{{p.id}}', '1', '{{v.id}}')" class="post-{{p.id}}-up mx-auto arrow-up upvote-button post-{{p.id}}-up {% if voted==1 %}active{% else %}d-none{% endif %}"></div>
 

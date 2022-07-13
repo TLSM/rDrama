@@ -47,7 +47,7 @@
 	{% endif %}
 
 	{% if request.path.endswith('/catalog') %}
-		<link rel="stylesheet" href="/assets/css/catalog.css?v=1">
+		<link rel="stylesheet" href="{{asset('css/catalog.css')}}">
 	{% endif %}
 
 	{% if sub and sub.css and not request.path.endswith('settings') %}
