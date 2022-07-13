@@ -24,7 +24,7 @@
 		{% if v and v.admin_level > 1 %}
 			People here now: <a href="/admin/loggedin">{{g.loggedin_counter}} logged in</a>, <a href="/admin/loggedout">{{g.loggedout_counter}} logged out</a>
 		{% else %}
-			People here now: {{g.loggedin_counter}} logged in, {{g.loggedout_counter}} logged out
+			{{g.loggedin_counter+g.loggedout_counter}} people here now ({{g.loggedin_counter}} logged in)
 		{% endif %}
 	</div>
 {% else %}
