@@ -3115,6 +3115,11 @@ small, .small {
 	word-break: keep-all;
 	min-width: 40px;
 }
+.voting.d-md-flex {
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
 #thread .voting {
 	min-width: 10px;
 	margin-right: 10px;

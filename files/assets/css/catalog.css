@@ -40,7 +40,7 @@
     max-width: 1750px;
 }
 
-#frontpage .voting.d-md-block {
+#frontpage .voting.d-md-flex {
     display: none !important;
 }
 
