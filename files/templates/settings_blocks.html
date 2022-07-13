@@ -60,14 +60,7 @@
 						</td>
 
 						<td>
-							<div class="dropdown float-right dropdown-actions">
-								<a role="button" id="dropdownMoreLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 0;">
-									<i class="fas fa-ellipsis-h text-muted"></i>
-								</a>
-								<div class="dropdown-menu border-0 shadow dropdown-menu-right mt-2" aria-labelledby="dropdownMoreLink" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(21px, 18px, 0px);">
-									<a class="dropdown-item" role="button" onclick="post_toast(this,'/settings/unblock?username={{block.target.username}}&formkey={{v.formkey}}')"><i class="fas fa-check"></i>Unblock</a>
-								</div>
-							</div>
+							<button class="btn btn-primary" onclick="post_toast(this,'/settings/unblock?username={{block.target.username}}&formkey={{v.formkey}}')"><i class="fas fa-check"></i>Unblock</a>
 						</td>
 					</tr>
 				{% else %}
