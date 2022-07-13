@@ -137,10 +137,11 @@ def torture_ap(body, username):
 commands = {
 	"fortune": FORTUNE_REPLIES,
 	"factcheck": FACTCHECK_REPLIES,
-	"8ball": EIGHTBALL_REPLIES
+	"8ball": EIGHTBALL_REPLIES,
+	"roll": range(1, 9999)
 }
 
-command_regex = re.compile("(\s|\n|^)#(fortune|factcheck|8ball)", flags=re.A|re.I)
+command_regex = re.compile("(\s|\n|^)#(fortune|factcheck|8ball|roll)", flags=re.A|re.I)
 
 def command_regex_matcher(match, upper=False):
-	return match.group(1) + choice(commands[match.group(2).lower()])
+	return match.group(1) + str(choice(commands[match.group(2).lower()]))
