@@ -345,7 +345,7 @@ elif SITE == 'lgbdropthet.com':
 	LONGPOSTBOT_ID = 4
 	ZOZBOT_ID = 5
 
-	CARP_ID = 17
+	CARP_ID = 18
 	AEVANN_ID = 10
 	SNAKES_ID = 9
 
