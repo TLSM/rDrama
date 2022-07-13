@@ -95,7 +95,7 @@ def block_sub(v, sub):
 	if not sub: abort(404)
 	sub = sub.name
 
-	if v.mods(sub): return {"error": "You can't block subs you mod!"}
+	if v.mods(sub): return {"error": f"You can't block {HOLE_NAME}s you mod!"}
 
 	existing = g.db.query(SubBlock).filter_by(user_id=v.id, sub=sub).one_or_none()
 
@@ -104,7 +104,7 @@ def block_sub(v, sub):
 		g.db.add(block)
 		cache.delete_memoized(frontlist)
 
-	return {"message": "Sub blocked successfully!"}
+	return {"message": f"{HOLE_NAME.capitalize()} blocked successfully!"}
 
 
 @app.post("/h/<sub>/unblock")
@@ -120,7 +120,7 @@ def unblock_sub(v, sub):
 		g.db.delete(block)
 		cache.delete_memoized(frontlist)
 
-	return {"message": "Sub unblocked successfully!"}
+	return {"message": f"{HOLE_NAME.capitalize()} unblocked successfully!"}
 
 @app.post("/h/<sub>/follow")
 @auth_required
@@ -134,7 +134,7 @@ def follow_sub(v, sub):
 		subscription = SubSubscription(user_id=v.id, sub=sub.name)
 		g.db.add(subscription)
 
-	return {"message": "Sub followed successfully!"}
+	return {"message": f"{HOLE_NAME.capitalize()} followed successfully!"}
 
 @app.post("/h/<sub>/unfollow")
 @auth_required
@@ -147,7 +147,7 @@ def unfollow_sub(v, sub):
 	if subscription:
 		g.db.delete(subscription)
 
-	return {"message": "Sub unfollowed successfully!"}
+	return {"message": f"{HOLE_NAME.capitalize()} unfollowed successfully!"}
 
 @app.get("/h/<sub>/mods")
 @auth_required
@@ -278,7 +278,7 @@ def create_sub2(v):
 	name = name.strip().lower()
 
 	if not valid_sub_regex.fullmatch(name):
-		return render_template("sub/create_hole.html", v=v, cost=HOLE_COST, error="Sub name not allowed."), 400
+		return render_template("sub/create_hole.html", v=v, cost=HOLE_COST, error=f"{HOLE_NAME.capitalize()} name not allowed."), 400
 
 	sub = g.db.query(Sub).filter_by(name=name).one_or_none()
 	if not sub:
