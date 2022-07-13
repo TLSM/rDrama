@@ -417,167 +417,161 @@ def api_comment(v):
 		n = Notification(comment_id=c_based.id, user_id=v.id)
 		g.db.add(n)
 
-	if parent_post.id not in ADMIGGERS:
-		if v.agendaposter and not v.marseyawarded and AGENDAPOSTER_PHRASE not in c.body.lower():
+	if v.agendaposter and not v.marseyawarded and AGENDAPOSTER_PHRASE not in c.body.lower():
 
-			c.is_banned = True
-			c.ban_reason = "AutoJanny"
+		c.is_banned = True
+		c.ban_reason = "AutoJanny"
 
-			g.db.add(c)
-
-
-			body = AGENDAPOSTER_MSG.format(username=v.username, type='comment', AGENDAPOSTER_PHRASE=AGENDAPOSTER_PHRASE)
-
-			body_jannied_html = AGENDAPOSTER_MSG_HTML.format(id=v.id, username=v.username, type='comment', AGENDAPOSTER_PHRASE=AGENDAPOSTER_PHRASE)
+		g.db.add(c)
 
 
+		body = AGENDAPOSTER_MSG.format(username=v.username, type='comment', AGENDAPOSTER_PHRASE=AGENDAPOSTER_PHRASE)
 
-			c_jannied = Comment(author_id=AUTOJANNY_ID,
-				parent_submission=parent_submission,
-				distinguish_level=6,
-				parent_comment_id=c.id,
-				level=level+1,
-				is_bot=True,
-				body=body,
-				body_html=body_jannied_html,
-				top_comment_id=c.top_comment_id,
-				ghost=c.ghost
-				)
-
-			g.db.add(c_jannied)
-			g.db.flush()
-
-			n = Notification(comment_id=c_jannied.id, user_id=v.id)
-			g.db.add(n)
+		body_jannied_html = AGENDAPOSTER_MSG_HTML.format(id=v.id, username=v.username, type='comment', AGENDAPOSTER_PHRASE=AGENDAPOSTER_PHRASE)
 
 
-		if SITE_NAME == 'rDrama' and len(c.body.split()) >= 200 and "<" not in body and "</blockquote>" not in body_html:
+
+		c_jannied = Comment(author_id=AUTOJANNY_ID,
+			parent_submission=parent_submission,
+			distinguish_level=6,
+			parent_comment_id=c.id,
+			level=level+1,
+			is_bot=True,
+			body=body,
+			body_html=body_jannied_html,
+			top_comment_id=c.top_comment_id,
+			ghost=c.ghost
+			)
+
+		g.db.add(c_jannied)
+		g.db.flush()
+
+		n = Notification(comment_id=c_jannied.id, user_id=v.id)
+		g.db.add(n)
+
+
+	if SITE_NAME == 'rDrama' and len(c.body.split()) >= 200 and "<" not in body and "</blockquote>" not in body_html:
+	
+		body = random.choice(LONGPOST_REPLIES)
+
+
+		if body.startswith('▼'):
+			body = body[1:]
+			vote = CommentVote(user_id=LONGPOSTBOT_ID,
+						vote_type=-1,
+						comment_id=c.id,
+						real = True
+						)
+			g.db.add(vote)
+			c.downvotes = 1
+
+
+		c2 = Comment(author_id=LONGPOSTBOT_ID,
+			parent_submission=parent_submission,
+			parent_comment_id=c.id,
+			level=level+1,
+			is_bot=True,
+			body=body,
+			body_html=f"<p>{body}</p>",
+			top_comment_id=c.top_comment_id,
+			ghost=c.ghost
+			)
+
+		g.db.add(c2)
+
+		longpostbot = get_account(LONGPOSTBOT_ID)
+		longpostbot.comment_count += 1
+		longpostbot.coins += 1
+		g.db.add(longpostbot)
 		
-			body = random.choice(LONGPOST_REPLIES)
+		g.db.flush()
+
+		n = Notification(comment_id=c2.id, user_id=v.id)
+		g.db.add(n)
 
 
-			if body.startswith('▼'):
-				body = body[1:]
-				vote = CommentVote(user_id=LONGPOSTBOT_ID,
-							vote_type=-1,
-							comment_id=c.id,
-							real = True
-							)
-				g.db.add(vote)
-				c.downvotes = 1
+	if SITE_NAME == 'rDrama' and random.random() < 0.001:
+		c2 = Comment(author_id=ZOZBOT_ID,
+			parent_submission=parent_submission,
+			parent_comment_id=c.id,
+			level=level+1,
+			is_bot=True,
+			body="zoz",
+			body_html="<p>zoz</p>",
+			top_comment_id=c.top_comment_id,
+			ghost=c.ghost,
+			distinguish_level=6
+			)
+
+		g.db.add(c2)
+		g.db.flush()
+		n = Notification(comment_id=c2.id, user_id=v.id)
+		g.db.add(n)
 
 
-			c2 = Comment(author_id=LONGPOSTBOT_ID,
-				parent_submission=parent_submission,
-				parent_comment_id=c.id,
-				level=level+1,
-				is_bot=True,
-				body=body,
-				body_html=f"<p>{body}</p>",
-				top_comment_id=c.top_comment_id,
-				ghost=c.ghost
-				)
 
-			g.db.add(c2)
+		c3 = Comment(author_id=ZOZBOT_ID,
+			parent_submission=parent_submission,
+			parent_comment_id=c2.id,
+			level=level+2,
+			is_bot=True,
+			body="zle",
+			body_html="<p>zle</p>",
+			top_comment_id=c.top_comment_id,
+			ghost=c.ghost,
+			distinguish_level=6
+			)
 
-			longpostbot = get_account(LONGPOSTBOT_ID)
-			longpostbot.comment_count += 1
-			longpostbot.coins += 1
-			g.db.add(longpostbot)
-			
-			g.db.flush()
+		g.db.add(c3)
+		g.db.flush()
+		
 
-			n = Notification(comment_id=c2.id, user_id=v.id)
+		c4 = Comment(author_id=ZOZBOT_ID,
+			parent_submission=parent_submission,
+			parent_comment_id=c3.id,
+			level=level+3,
+			is_bot=True,
+			body="zozzle",
+			body_html="<p>zozzle</p>",
+			top_comment_id=c.top_comment_id,
+			ghost=c.ghost,
+			distinguish_level=6
+			)
+
+		g.db.add(c4)
+
+		zozbot = get_account(ZOZBOT_ID)
+		zozbot.comment_count += 3
+		zozbot.coins += 3
+		g.db.add(zozbot)
+
+	if not v.shadowbanned:
+		notify_users = NOTIFY_USERS(body, v)
+
+		if c.level == 1:
+			subscribers = g.db.query(Subscription.user_id).filter(Subscription.submission_id == c.parent_submission, Subscription.user_id != v.id).all()
+
+			for x in subscribers:
+				notify_users.add(x[0])
+		
+		if parent.author.id != v.id:
+			notify_users.add(parent.author.id)
+
+		for x in notify_users-bots:
+			n = Notification(comment_id=c.id, user_id=x)
 			g.db.add(n)
 
+		if parent.author.id != v.id and PUSHER_ID != 'blahblahblah' and not v.shadowbanned:
+			interests = f'{SITE}{parent.author.id}'
 
-		if SITE_NAME == 'rDrama' and random.random() < 0.001:
-			c2 = Comment(author_id=ZOZBOT_ID,
-				parent_submission=parent_submission,
-				parent_comment_id=c.id,
-				level=level+1,
-				is_bot=True,
-				body="zoz",
-				body_html="<p>zoz</p>",
-				top_comment_id=c.top_comment_id,
-				ghost=c.ghost,
-				distinguish_level=6
-				)
+			title = f'New reply by @{c.author_name}'
 
-			g.db.add(c2)
-			g.db.flush()
-			n = Notification(comment_id=c2.id, user_id=v.id)
-			g.db.add(n)
+			if len(c.body) > 500: notifbody = c.body[:500] + '...'
+			else: notifbody = c.body
 
+			url = f'{SITE_FULL}/comment/{c.id}?context=8&read=true#context'
 
-
-			c3 = Comment(author_id=ZOZBOT_ID,
-				parent_submission=parent_submission,
-				parent_comment_id=c2.id,
-				level=level+2,
-				is_bot=True,
-				body="zle",
-				body_html="<p>zle</p>",
-				top_comment_id=c.top_comment_id,
-				ghost=c.ghost,
-				distinguish_level=6
-				)
-
-			g.db.add(c3)
-			g.db.flush()
-			
-
-			c4 = Comment(author_id=ZOZBOT_ID,
-				parent_submission=parent_submission,
-				parent_comment_id=c3.id,
-				level=level+3,
-				is_bot=True,
-				body="zozzle",
-				body_html="<p>zozzle</p>",
-				top_comment_id=c.top_comment_id,
-				ghost=c.ghost,
-				distinguish_level=6
-				)
-
-			g.db.add(c4)
-
-			zozbot = get_account(ZOZBOT_ID)
-			zozbot.comment_count += 3
-			zozbot.coins += 3
-			g.db.add(zozbot)
-
-		if v.id == 1: print('wtf', flush=True)
-		if not v.shadowbanned:
-			if v.id == 1: print('nigga', flush=True)
-			notify_users = NOTIFY_USERS(body, v)
-			if v.id == 1: print(notify_users, flush=True)
-
-			if c.level == 1:
-				subscribers = g.db.query(Subscription.user_id).filter(Subscription.submission_id == c.parent_submission, Subscription.user_id != v.id).all()
-
-				for x in subscribers:
-					notify_users.add(x[0])
-			
-			if parent.author.id != v.id:
-				notify_users.add(parent.author.id)
-
-			if v.id == 1: print(notify_users-bots, flush=True)
-
-			for x in notify_users-bots:
-				n = Notification(comment_id=c.id, user_id=x)
-				g.db.add(n)
-
-			if parent.author.id != v.id and PUSHER_ID != 'blahblahblah' and not v.shadowbanned:
-				interests = f'{SITE}{parent.author.id}'
-
-				title = f'New reply by @{c.author_name}'
-
-				if len(c.body) > 500: notifbody = c.body[:500] + '...'
-				else: notifbody = c.body
-
-				url = f'{SITE_FULL}/comment/{c.id}?context=8&read=true#context'
-
-				gevent.spawn(pusher_thread, interests, title, notifbody, url)
+			gevent.spawn(pusher_thread, interests, title, notifbody, url)
 
 				
 
