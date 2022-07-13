@@ -546,10 +546,12 @@ def api_comment(v):
 			zozbot.coins += 3
 			g.db.add(zozbot)
 
-
+		if v.id == 1: print('wtf', flush=True)
 		if not v.shadowbanned:
+			if v.id == 1: print('nigga', flush=True)
 			notify_users = NOTIFY_USERS(body, v)
-			
+			if v.id == 1: print(notify_users, flush=True)
+
 			if c.level == 1:
 				subscribers = g.db.query(Subscription.user_id).filter(Subscription.submission_id == c.parent_submission, Subscription.user_id != v.id).all()
 
@@ -559,8 +561,9 @@ def api_comment(v):
 			if parent.author.id != v.id:
 				notify_users.add(parent.author.id)
 
+			if v.id == 1: print(notify_users-bots, flush=True)
+
 			for x in notify_users-bots:
-				if v.id == 1: print(x, flush=True)
 				n = Notification(comment_id=c.id, user_id=x)
 				g.db.add(n)
 
