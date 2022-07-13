@@ -196,21 +196,21 @@ def api_comment(v):
 				image = process_image(oldname)
 				if image == "": return {"error":"Image upload failed"}
 				if v.admin_level > 2 and level == 1:
-					if parent_post.id == 37696:
+					if parent_post.id == SIDEBAR_THREAD:
 						li = sorted(os.listdir(f'files/assets/images/{SITE_NAME}/sidebar'),
 							key=lambda e: int(e.split('.webp')[0]))[-1]
 						num = int(li.split('.webp')[0]) + 1
 						filename = f'files/assets/images/{SITE_NAME}/sidebar/{num}.webp'
 						copyfile(oldname, filename)
 						process_image(filename, 400)
-					elif parent_post.id == 37697:
+					elif parent_post.id == BANNER_THREAD:
 						li = sorted(os.listdir(f'files/assets/images/{SITE_NAME}/banners'),
 							key=lambda e: int(e.split('.webp')[0]))[-1]
 						num = int(li.split('.webp')[0]) + 1
 						filename = f'files/assets/images/{SITE_NAME}/banners/{num}.webp'
 						copyfile(oldname, filename)
 						process_image(filename)
-					elif parent_post.id == 37833:
+					elif parent_post.id == BADGE_THREAD:
 						try:
 							badge_def = loads(body)
 							name = badge_def["name"]
@@ -228,7 +228,7 @@ def api_comment(v):
 								data=f'{{"files": ["https://{request.host}/assets/images/badges/{badge.id}.webp"]}}', timeout=5)
 						except Exception as e:
 							return {"error": str(e)}, 400
-					elif v.admin_level > 2 and parent_post.id == 37838:
+					elif v.admin_level > 2 and parent_post.id == MARSEY_THREAD:
 						try:
 							marsey = loads(body.lower())
 
@@ -277,7 +277,7 @@ def api_comment(v):
 
 	body = body.strip()
 	
-	if v.admin_level > 2 and parent_post.id == 37749 and level == 1:
+	if v.admin_level > 2 and parent_post.id == SNAPPY_THREAD and level == 1:
 		with open(f"snappy_{SITE_NAME}.txt", "a", encoding="utf-8") as f:
 			f.write('\n{[para]}\n' + body)
 
