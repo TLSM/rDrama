@@ -48,7 +48,6 @@
 	border-bottom: 2px solid #a7a5a1 !important;
 	border-right: 2px solid #a7a5a1 !important;
 	background: var(--gray-500) !important;
-	color: #000 !important;
 }
 
 .nav-link:focus, .btn:focus, .btn-secondary:focus, .col.px-0.pl-2.btn.btn-dead.my-0.mx-2,
