@@ -525,12 +525,12 @@
 {% endif %}
 
 {% if v.admin_level > 1 and v.id != c.author_id %}
-<button id="unban-{{c.id}}" class="dropdown-item list-inline-item d-none {% if c.author.is_suspended %}d-md-block{% endif %} text-success" id="unexile-comment-{{c.id}}" onclick="post_toast(this,'/unban_user/{{c.author_id}}','ban-{{c.id}}','unban-{{c.id}}','d-md-block')"><i class="fas fa-user-slash text-success fa-fw"></i>Unban user</button>
-<button id="ban-{{c.id}}" class="dropdown-item list-inline-item d-none {% if not c.author.is_suspended %}d-md-block{% endif %} text-danger" id="exile-comment-{{c.id}}" data-bs-toggle="modal" data-bs-target="#banModal" onclick="banModal('/comment/{{c.id}}', '{{c.author.id}}', '{{c.author_name}}')"><i class="fas fa-user-slash text-danger fa-fw"></i>Ban user</button>
+<button id="unban-{{c.id}}" class="dropdown-item list-inline-item d-none {% if c.author.is_suspended %}d-md-block{% endif %} text-success" onclick="post_toast(this,'/unban_user/{{c.author_id}}','ban-{{c.id}}','unban-{{c.id}}','d-md-block')"><i class="fas fa-user-slash text-success fa-fw"></i>Unban user</button>
+<button id="ban-{{c.id}}" class="dropdown-item list-inline-item d-none {% if not c.author.is_suspended %}d-md-block{% endif %} text-danger" data-bs-toggle="modal" data-bs-target="#banModal" onclick="banModal('/comment/{{c.id}}', '{{c.author.id}}', '{{c.author_name}}')"><i class="fas fa-user-slash text-danger fa-fw"></i>Ban user</button>
 {% endif %}
 
 {% if v.admin_level > 1 and c.oauth_app %}
-<a class=" text-muted" href="{{c.oauth_app.permalink}}/comments"><i class="fas fa-code fa-fw"></i>API App</a>
+	<a href="{{c.oauth_app.permalink}}/comments" class="dropdown-item list-inline-item d-none d-md-block text-primary"><i class="fas fa-fa-code text-primary fa-fw"></i>API App</a>
 {% endif %}
 							</ul>
 						{% endif %}
