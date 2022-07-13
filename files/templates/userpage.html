@@ -377,7 +377,7 @@
 	</div>
 	<div class="row border-bottom">
 		<div class="col">
-			<div style="margin-top: -34px;" id="profile--pfp">
+			<div style="margin-top: -34px;" id="profile-mobile--pfp">
 				<a rel="nofollow noopener noreferrer" href="{% if u.highres %}{{u.highres}}{% else %}{{u.profile_url}}{% endif %}"><img loading="lazy" src="{{u.profile_url}}" class="profile-pic-65 bg-white border-2 border-white mb-2"></a>
 				{% if u.is_cakeday %}
 					<img class="party-hat3" src="/i/party-hat.webp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="I’ve spent another year rotting my brain with dramaposting, please ridicule me 🤓">
@@ -385,46 +385,46 @@
 			</div>
 			<div class="mt-n3 py-3">
 				{% if u.is_suspended %}
-					<h5 class="text-primary" id="profile--banned">BANNED USER{% if u.ban_reason %}: {{u.ban_reason | safe}}{% endif %}</h5>
-					{% if u.unban_utc %}<h5 class="text-primary" id="profile--unban">{{u.unban_string}}</h5>{% endif %}
+					<h5 class="text-primary" id="profile-mobile--banned">BANNED USER{% if u.ban_reason %}: {{u.ban_reason | safe}}{% endif %}</h5>
+					{% if u.unban_utc %}<h5 class="text-primary" id="profile-mobile--unban">{{u.unban_string}}</h5>{% endif %}
 				{% endif %}
 
-				<h1 class="h5 d-inline-block" id="profile--name" style="color: #{{u.namecolor}}"><span {% if u.patron %}class="patron" style="background-color:#{{u.namecolor}}"{% endif %}>{{u.username}}</span></h1>
+				<h1 class="h5 d-inline-block" id="profile-mobile--name" style="color: #{{u.namecolor}}"><span {% if u.patron %}class="patron" style="background-color:#{{u.namecolor}}"{% endif %}>{{u.username}}</span></h1>
 
 				{% if u.username != u.original_username %}
-					<span id="profile--origname">
+					<span id="profile-mobile--origname">
 						<i class="fas fa-user-tag text-info align-middle ml-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Original Username: @{{u.original_username}}"></i>
 					</span>
 				{% endif %}
 
 				{% if SITE_NAME=='rDrama' and u.house %}
-					<img loading="lazy" class="ml-2" id="profile--house" src="/i/{{SITE_NAME}}/houses/{{u.house}}.webp?v=2000" height="20" data-bs-toggle="tooltip" data-bs-placement="bottom" title="House {{u.house}}" alt="House {{u.house}}">
+					<img loading="lazy" class="ml-2" id="profile-mobile--house" src="/i/{{SITE_NAME}}/houses/{{u.house}}.webp?v=2000" height="20" data-bs-toggle="tooltip" data-bs-placement="bottom" title="House {{u.house}}" alt="House {{u.house}}">
 				{% endif %}
 
 				{% if u.verified %}
-					<span id="profile--verified"><i class="fas fa-badge-check align-middle ml-2 {% if u.verified=='Glowiefied' %}glow{% endif %}" style="color:{% if u.verifiedcolor %}#{{u.verifiedcolor}}{% else %}#1DA1F2{% endif %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{u.verified}}"></i></span>&nbsp;
+					<span id="profile-mobile--verified"><i class="fas fa-badge-check align-middle ml-2 {% if u.verified=='Glowiefied' %}glow{% endif %}" style="color:{% if u.verifiedcolor %}#{{u.verifiedcolor}}{% else %}#1DA1F2{% endif %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{u.verified}}"></i></span>&nbsp;
 				{% endif %}
 
 				{% if u.admin_level > 1 %}
-					<span id="profile--mop">
+					<span id="profile-mobile--mop">
 						<i class="fas fa-broom text-admin align-middle ml-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Admin"></i>
 					</span>
 				{% endif %}
 				{% if v and v.id != u.id and v.has_follower(u) and not v.is_nofollow %}
-					<span class="followsyou badge badge-secondary text-small align-middle mx-1" id="profile--follows-you">Follows you</span>
+					<span class="followsyou badge badge-secondary text-small align-middle mx-1" id="profile-mobile--follows-you">Follows you</span>
 				{% endif %}
 
 				{% if SITE_NAME == 'rDrama' %}
-					<p style="color: #{{u.titlecolor}}" id="profile--pronouns">{{u.pronouns}}</p>
+					<p style="color: #{{u.titlecolor}}" id="profile-mobile--pronouns">{{u.pronouns}}</p>
 				{% endif %}
 
 				{% if u.customtitle %}
-					<p style="color: #{{u.titlecolor}}" id="profile--flair">{{u.customtitle | safe}}</p>
+					<p style="color: #{{u.titlecolor}}" id="profile-mobile--flair">{{u.customtitle | safe}}</p>
 				{% else %}
 					<pre></pre>
 				{% endif %}
 
-				<div class="font-weight-bolder mb-2" id="profile--simphate"><a class="mr-1" href="/@{{u.username}}/upvoters">Simps</a> | <a class="mx-1" href="/@{{u.username}}/downvoters">Haters</a> | <a class="mx-1" href="/@{{u.username}}/upvoting">Simps for</a> | <a class="ml-1" href="/@{{u.username}}/downvoting">Hates</a></div>
+				<div class="font-weight-bolder mb-2" id="profile-mobile--simphate"><a class="mr-1" href="/@{{u.username}}/upvoters">Simps</a> | <a class="mx-1" href="/@{{u.username}}/downvoters">Haters</a> | <a class="mx-1" href="/@{{u.username}}/upvoting">Simps for</a> | <a class="ml-1" href="/@{{u.username}}/downvoting">Hates</a></div>
 
 				<div class="font-weight-normal">
 					<span id="profile-coins-amount-mobile" class="font-weight-bold">{{u.coins}}</span>
@@ -435,39 +435,39 @@
 						<img alt="marseybux" class="ml-1 mb-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Marseybux" height="15" width="35" src="/i/marseybux.webp?v=2000">&nbsp;&nbsp;
 					{% endif %}
 
-					<a href="/@{{u.username}}/followers" class="font-weight-bold" id="profile--followers">{{u.stored_subscriber_count}} follower{{'s' if u.stored_subscriber_count != 1 else ''}}</a>&nbsp;&nbsp;
+					<a href="/@{{u.username}}/followers" class="font-weight-bold" id="profile-mobile--followers">{{u.stored_subscriber_count}} follower{{'s' if u.stored_subscriber_count != 1 else ''}}</a>&nbsp;&nbsp;
 
-					<a href="/@{{u.username}}/following" class="font-weight-bold" id="profile--following" style="display:block">follows {{u.follow_count}} user{{'s' if u.follow_count != 1 else ''}}</a>&nbsp;&nbsp;
+					<a href="/@{{u.username}}/following" class="font-weight-bold" id="profile-mobile--following" style="display:block">follows {{u.follow_count}} user{{'s' if u.follow_count != 1 else ''}}</a>&nbsp;&nbsp;
 
 					{% if u.basedcount %}
-						<br><span id="profile--based">Based count: {{u.basedcount}}</span>
+						<br><span id="profile-mobile--based">Based count: {{u.basedcount}}</span>
 					{% endif %}
 
-					<br><span id="profile--joined2">joined <span id="profile--joined--time2" data-bs-toggle="tooltip" data-bs-placement="bottom"  onmouseover="timestamp('profile--joined--time2','{{u.created_utc}}')" class="font-weight-bold">{{u.created_date}}</span></span>
+					<br><span id="profile-mobile--joined">joined <span id="profile-mobile--joined--time" data-bs-toggle="tooltip" data-bs-placement="bottom"  onmouseover="timestamp('profile-mobile--joined--time','{{u.created_utc}}')" class="font-weight-bold">{{u.created_date}}</span></span>
 
 					{% if v and v.admin_level >= 2 -%}
-						<br><span id="profile--lastactive2">last active <span id="profile--lastactive--time2" data-bs-toggle="tooltip" data-bs-placement="bottom" onmouseover="timestamp('profile--lastactive--time2','{{u.last_active}}')" class="font-weight-bold">{{u.last_active_date}}</span></span>
+						<br><span id="profile-mobile--lastactive">last active <span id="profile-mobile--lastactive--time" data-bs-toggle="tooltip" data-bs-placement="bottom" onmouseover="timestamp('profile-mobile--lastactive--time','{{u.last_active}}')" class="font-weight-bold">{{u.last_active_date}}</span></span>
 					{%- endif %}
 				</div>
 				{% if u.bio_html %}
-					<div class="text-muted text-break" id="profile--bio">{{u.bio_html | safe}}</div>
+					<div class="text-muted text-break" id="profile-mobile--bio">{{u.bio_html | safe}}</div>
 				{% endif %}
 
 				{% if u.friends_html %}
 					<p class="text-muted font-weight-bold mt-3">Friends:</p>
-					<div id="profile--friends">{{u.friends_html | safe}}</div>
+					<div id="profile-mobile--friends">{{u.friends_html | safe}}</div>
 				{% endif %}
 
 				{% if u.enemies_html %}
 					<p class="text-muted font-weight-bold mt-3">Enemies:</p>
-					<div id="profile--enemies">{{u.enemies_html | safe}}</div>
+					<div id="profile-mobile--enemies">{{u.enemies_html | safe}}</div>
 				{% endif %}
 
 				{% if u.received_awards %}
-				<div class="text-white rounded p-2 my-3 text-center" id="profile--awards" style="background-color: rgba(50, 50, 50, 0.6);">
+				<div class="text-white rounded p-2 my-3 text-center" id="profile-mobile--awards" style="background-color: rgba(50, 50, 50, 0.6);">
 					<p class="text-uppercase my-0" style="font-weight: bold; font-size: 12px;">Awards received</p>
 					{% for a in u.received_awards %}
-					<span class="d-inline-block mx-1 profile--awards--award">
+					<span class="d-inline-block mx-1 profile-mobile--awards--award">
 						<i class="{{a['icon']}} {{a['color']}} fa-fw" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{a['title']}} Awards received"></i>
 						x{{a['count']}}
 					</span>
@@ -476,7 +476,7 @@
 				{% endif %}
 
 				{% if u.moderated_subs %}
-					<div class="text-white rounded p-2 mb-3" id="profile--holes" style="background-color: rgba(50, 50, 50, 0.6);">
+					<div class="text-white rounded p-2 mb-3" id="profile-mobile--holes" style="background-color: rgba(50, 50, 50, 0.6);">
 						<p class="text-uppercase my-0 pb-1" style="font-weight: bold; font-size: 12px;">Moderator of</p>
 						{% for a in u.moderated_subs %}
 							<span class="d-inline-block mx-1">
@@ -486,7 +486,7 @@
 					</div>
 				{% endif %}
 
-				<div class="mb-3" id="profile--badges">
+				<div class="mb-3" id="profile-mobile--badges">
 					{% for b in u.badges %}
 						{% if b.url %}
 							<a rel="nofollow noopener noreferrer" href="{{b.url}}"><img alt="{{b.name}}" width=29.33 height=32 loading="lazy" src="{{b.path}}?v=1021" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{b.text}}" {% if b.until %}data-until="{{b.until}}" onmouseover="badge_timestamp(this)"{% endif %}></a>
@@ -641,24 +641,24 @@
 					{% endif %}
 				{% endif %}
 				<pre></pre>
-				<div id="profile--info">
-					<p id="profile--info--id">User ID: {{u.id}}</p>
-					<p id="profile--info--spent">Coins spent: {{u.coins_spent}}</p>
-					<p id="profile--info--truescore">True score: {{u.truecoins}}</p>
-					<p id="profile--info--winnings">Winnings: {{u.winnings}}</p>
+				<div id="profile-mobile--info">
+					<p id="profile-mobile--info--id">User ID: {{u.id}}</p>
+					<p id="profile-mobile--info--spent">Coins spent: {{u.coins_spent}}</p>
+					<p id="profile-mobile--info--truescore">True score: {{u.truecoins}}</p>
+					<p id="profile-mobile--info--winnings">Winnings: {{u.winnings}}</p>
 					{% if u.is_private %}
-						<p id="profile--info--private">User has private mode enabled.</p>
+						<p id="profile-mobile--info--private">User has private mode enabled.</p>
 					{% endif %}
 					{% if v and (v.admin_level > 1 or v.alt) %}
-						<span id="profile--alts">Alts:</span>
-						<ul id="profile--alts-list">
+						<span id="profile-mobile--alts">Alts:</span>
+						<ul id="profile-mobile--alts-list">
 							{% for account in u.alts_unique %}
 								<li><a href="{{account.url}}">@{{account.username}}</a>{% if account._is_manual %} [m]{% endif %}</li>
 							{% endfor %}
 						</ul>
 					{% endif %}
 					{% if u.is_suspended %}
-						<p id="profile--info--bannedby">Banned by: <a href="{{u.banned_by.url}}">@{{u.banned_by.username}}</a></p>
+						<p id="profile-mobile--info--bannedby">Banned by: <a href="{{u.banned_by.url}}">@{{u.banned_by.username}}</a></p>
 					{% endif %}
 				</div>
 			</div>
