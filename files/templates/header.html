@@ -13,21 +13,30 @@
 		}
 	</style>
 
+{% if SITE_NAME == 'rDrama' %}
 	<div class="srd">
-		{% if SITE_NAME == 'rDrama' %}
-			{% include "journoid_banner.html" %}
-		{%- elif SITE_NAME == 'LGBDropTheT' -%}
-			LGB Drop The T
-		{%- elif not err -%}
-			<img src="/e/marseylowpoly.webp" height=18 width=28>
-
-			{% if v and v.admin_level > 1 and g.loggedin_counter %}
-				People here now: <a href="/admin/loggedin">{{g.loggedin_counter}} logged in</a>, <a href="/admin/loggedout">{{g.loggedout_counter}} logged out</a>
-			{% elif g.loggedout_counter %}
-				People here now: {{g.loggedin_counter}} logged in, {{g.loggedout_counter}} logged out
-			{% endif %}
-		{%- endif -%}
+		{% include "journoid_banner.html" %}
 	</div>
+{% elif g.loggedout_counter+g.loggedin_counter > 100 and not err %}
+	<div class="srd">
+		<img src="/e/marseylowpoly.webp" height=18 width=28>
+
+		{% if v and v.admin_level > 1 %}
+			People here now: <a href="/admin/loggedin">{{g.loggedin_counter}} logged in</a>, <a href="/admin/loggedout">{{g.loggedout_counter}} logged out</a>
+		{% else %}
+			People here now: {{g.loggedin_counter}} logged in, {{g.loggedout_counter}} logged out
+		{% endif %}
+	</div>
+{% else %}
+	<style>
+		body {padding-top: 54.62px !important}
+		@media (max-width: 767.98px) {
+			body {
+				padding-top: 44.05px !important
+			}
+		}
+	</style>
+{% endif %}
 
 		<div class="navbar navbar-expand-md navbar-light" id="navbar">
 			<div class="container-fluid" style="padding:0;">

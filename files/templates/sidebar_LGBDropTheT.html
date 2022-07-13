@@ -10,18 +10,18 @@
 		<img class="mb-4" alt="sidebar image" role="button" onclick="expandDesktopImage()" loading="lazy" src="{{image}}" width=100%>
 	</a>
 
-	<p class="mt-1 ml-2 mb-4 text-center">
-		{% if g.loggedin_counter %}
+	{% if g.loggedout_counter+g.loggedin_counter > 100 %}
+		<p class="mt-1 ml-2 mb-4 text-center">
 			<span id="sidebar--counter--total">{{ g.loggedin_counter + g.loggedout_counter }}</span>
-		{% endif %}
-		<span id="sidebar--counter--flavor"> people here now</span>
-		<span id="sidebar--counter--loggedin">({{ g.loggedin_counter }} logged in)</span>
-		{% if v and v.admin_level >= 2 -%}
-			<span id="sidebar--counter--admin">
-				<a href="/admin/loggedin">Logged In</a> | <a href="/admin/loggedout">Logged Out</a>
-			</span>
-		{%- endif %}
-	</p>
+			<span id="sidebar--counter--flavor"> people here now</span>
+			<span id="sidebar--counter--loggedin">({{ g.loggedin_counter }} logged in)</span>
+			{% if v and v.admin_level >= 2 -%}
+				<span id="sidebar--counter--admin">
+					<a href="/admin/loggedin">Logged In</a> | <a href="/admin/loggedout">Logged Out</a>
+				</span>
+			{%- endif %}
+		</p>
+	{% endif %}
 
 	<p class="text-center text-md mb-4">
 		<a class="sidebar-link" href="/badges" data-bs-toggle="tooltip" data-bs-placement="top" title="Badges"><i class="fas fa-hexagon"></i></a>
