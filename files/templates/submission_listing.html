@@ -247,7 +247,7 @@
 	</div>
 </div>
 
-<div class="card-footer d-md-none mt-2 {% if request.path == '/changelog' %}px-0{% endif %}">
+<div class="card-footer d-md-none mt-2">
 	<div class="post-actions">
 		<ul class="list-inline text-right d-flex">
 			<li class="list-inline-item mr-auto">
@@ -264,7 +264,7 @@
 
 			</li>
 			
-			{% if p.realbody(v, True) and request.path != "/changelog"%}
+			{% if p.realbody(v, True) %}
 				<a class="list-inline-item" role="button" onclick="expandText('{{p.id}}')"><i class="fas fa-expand-alt mr-0 text-expand-icon-{{p.id}}"></i></a>
 			{% endif %}
 

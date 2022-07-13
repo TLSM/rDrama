@@ -16,7 +16,7 @@ from flask import *
 from io import BytesIO
 from files.__main__ import app, limiter, cache, db_session
 from PIL import Image as PILimage
-from .front import frontlist, changeloglist
+from .front import frontlist
 from urllib.parse import ParseResult, urlunparse, urlparse, quote, unquote
 from os import path
 import requests
@@ -68,9 +68,8 @@ def publish(pid, v):
 	cache.delete_memoized(frontlist)
 	cache.delete_memoized(User.userpagelisting)
 
-	if (v.admin_level > 0 or v.has_badge(3)) and ("[changelog]" in post.title.lower() or "(changelog)" in post.title.lower()):
+	if (v.admin_level > 0 or v.has_badge(3)) and post.sub == 'changelog':
 		send_discord_message(post.permalink)
-		cache.delete_memoized(changeloglist)
 
 	if SITE == 'watchpeopledie.co':
 		send_wpd_message(post.permalink)
@@ -1080,9 +1079,8 @@ def submit_post(v, sub=None):
 	cache.delete_memoized(frontlist)
 	cache.delete_memoized(User.userpagelisting)
 
-	if (v.admin_level > 0 or v.has_badge(3)) and ("[changelog]" in post.title.lower() or "(changelog)" in post.title.lower()) and not post.private:
+	if (v.admin_level > 0 or v.has_badge(3)) and post.sub == 'changelog' and not post.private:
 		send_discord_message(post.permalink)
-		cache.delete_memoized(changeloglist)
 
 	if not post.private and SITE == 'watchpeopledie.co':
 		send_wpd_message(post.permalink)

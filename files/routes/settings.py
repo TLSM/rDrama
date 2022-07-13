@@ -297,16 +297,6 @@ def filters(v):
 	g.db.add(v)
 	return render_template("settings_filters.html", v=v, msg="Your custom filters have been updated.")
 
-@app.post("/changelogsub")
-@auth_required
-def changelogsub(v):
-	v.changelogsub = not v.changelogsub
-	g.db.add(v)
-
-	cache.delete_memoized(frontlist)
-
-	if v.changelogsub: return {"message": "You have subscribed to the changelog!"}
-	else: return {"message": "You have unsubscribed from the changelog!"}
 
 @app.post("/settings/namecolor")
 @limiter.limit("1/second;30/minute;200/hour;1000/day")

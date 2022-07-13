@@ -1,22 +1,22 @@
 INSERT INTO public.users (username, passhash, created_utc, admin_level, over_18, is_activated, bio, bio_html, login_nonce, is_private,
 	unban_utc, original_username, customtitle, defaultsorting, defaultsortingcomments, defaulttime, namecolor, titlecolor,
-	customtitleplain, theme, themecolor, changelogsub, reddit, css, profilecss, coins, agendaposter,
+	customtitleplain, theme, themecolor, reddit, css, profilecss, coins, agendaposter,
 	post_count, comment_count, background, verified, truecoins, cardview, profileurl, highres
 ) VALUES ('AutoJanny', '', extract(epoch from now()), 0, true, true, '', '', 0, false, 
 			0, 'AutoJanny', '', 'hot', 'top', 'day', 'ff66ac', 'ff66ac',
-			'', 'dark', 'ff66ac', false, 'old.reddit.com', '', '', 0, 0,
+			'', 'dark', 'ff66ac', 'old.reddit.com', '', '', 0, 0,
 			0, 0, '', 'Verified', 0, false, '/i/pfps/1.webp', '/i/pfps/1.webp'),
 		 ('Snappy', '', extract(epoch from now()), 0, true, true, '', '', 0, false, 
 			0, 'Snappy', '', 'hot', 'top', 'day', '62ca56', 'e4432d',
-			'', 'dark', '30409f', false, 'old.reddit.com', '', '', 0, 0,
+			'', 'dark', '30409f', 'old.reddit.com', '', '', 0, 0,
 			0, 0, '', 'Verified', 0, false, '/i/pfps/2.webp', '/i/pfps/2.webp'),
 		 ('longpostbot', '', extract(epoch from now()), 0, true, true, '', '', 0, false, 
 			0, 'longpostbot', '', 'hot', 'top', 'day', '62ca56', 'e4432d',
-			'', 'dark', '30409f', false, 'old.reddit.com', '', '', 0, 0,
+			'', 'dark', '30409f', 'old.reddit.com', '', '', 0, 0,
 			0, 0, '', 'Verified', 0, false, '/i/pfps/3.webp', '/i/pfps/3.webp'),
 		 ('zozbot', '', extract(epoch from now()), 0, true, true, '', '', 0, false, 
 			0, 'zozbot', '', 'hot', 'top', 'day', '62ca56', 'e4432d',
-			'', 'dark', '30409f', false, 'old.reddit.com', '', '', 0, 0,
+			'', 'dark', '30409f', 'old.reddit.com', '', '', 0, 0,
 			0, 0, '', 'Verified', 0, false, '/i/pfps/4.webp', '/i/pfps/4.webp');
 
 INSERT INTO public.marseys VALUES 

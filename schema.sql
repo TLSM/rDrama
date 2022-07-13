@@ -755,7 +755,6 @@ CREATE TABLE public.users (
     newtabexternal boolean DEFAULT true NOT NULL,
     customtitleplain character varying(100),
     themecolor character varying(6) NOT NULL,
-    changelogsub boolean DEFAULT false NOT NULL,
     css character varying(4000),
     profilecss character varying(4000),
     coins integer DEFAULT 0 NOT NULL,

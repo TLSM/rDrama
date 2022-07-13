@@ -4561,14 +4561,6 @@ div.deleted.banned {
 .btn-lg {
 	border-color: transparent !important;
 }
-@media (max-width: 767.98px) {
-	.followbutton {
-		margin-bottom: 10px !important;
-}
-	.comment-actions {
-		margin-top: -8px;
-}
-}
 .btn-primary:focus, .btn-primary.focus {
 	box-shadow: none !important;
 }

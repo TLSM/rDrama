@@ -109,9 +109,6 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 	if v:
 		posts = posts.filter(Submission.author_id.notin_(v.userblocks))
 
-	if not (v and v.changelogsub):
-		posts=posts.filter(not_(Submission.title.ilike('[changelog]%')))
-
 	if v and filter_words:
 		for word in filter_words:
 			word  = word.replace('\\', '').replace('_', '\_').replace('%', '\%').strip()
@@ -168,52 +165,6 @@ def frontlist(v=None, sort="hot", page=1, t="all", ids_only=True, ccmode="false"
 
 
 	return posts, next_exists
-
-
-@app.get("/changelog")
-@auth_required
-def changelog(v):
-
-
-	try: page = max(int(request.values.get("page", 1)), 1)
-	except: page = 1
-
-	sort=request.values.get("sort", "new")
-	t=request.values.get('t', "all")
-
-	ids = changeloglist(sort=sort,
-					page=page,
-					t=t,
-					v=v,
-					site=SITE
-					)
-
-	next_exists = (len(ids) > 25)
-	ids = ids[:25]
-
-	posts = get_posts(ids, v=v)
-
-	if request.headers.get("Authorization"): return {"data": [x.json for x in posts], "next_exists": next_exists}
-	return render_template("changelog.html", v=v, listing=posts, next_exists=next_exists, sort=sort, t=t, page=page)
-
-
-@cache.memoize(timeout=86400)
-def changeloglist(v=None, sort="new", page=1, t="all", site=None):
-
-	posts = g.db.query(Submission.id).filter_by(is_banned=False, private=False, deleted_utc=0)
-
-	allowed = g.db.query(User.id).filter(User.admin_level > 0).all() + g.db.query(Badge.user_id).filter_by(badge_id=3).all()
-	allowed = [x[0] for x in allowed]
-
-	posts = posts.filter(Submission.title.ilike('_changelog%'), Submission.author_id.in_(allowed))
-
-	posts = apply_time_filter(t, posts, Submission)
-
-	posts = sort_posts(sort, posts)
-
-	posts = posts.offset(25 * (page - 1)).limit(26).all()
-
-	return [x[0] for x in posts]
 
 
 @app.get("/random_post")

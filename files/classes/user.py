@@ -70,7 +70,6 @@ class User(Base):
 	coins_spent = Column(Integer, default=0)
 	lootboxes_bought = Column(Integer, default=0)
 	agendaposter = Column(Integer, default=0)
-	changelogsub = Column(Boolean, default=False)
 	is_activated = Column(Boolean, default=False)
 	shadowbanned = Column(String)
 	over_18 = Column(Boolean, default=False)
