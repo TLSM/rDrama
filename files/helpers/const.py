@@ -873,8 +873,11 @@ SNAPPY_QUOTES = []
 if not SITE_NAME in ['PCM', 'LGBDropTheT']:
 	SNAPPY_QUOTES = [f':#{x}:' for x in marseys_const2]
 
-if path.exists(f'snappy_{SITE_NAME}.txt'):
-	with open(f'snappy_{SITE_NAME}.txt', "r", encoding="utf-8") as f:
+if SITE_NAME == 'Deuxrama': snappy_name = 'rDrama'
+else: snappy_name = SITE_NAME
+
+if path.exists(f'snappy_{snappy_name}.txt'):
+	with open(f'snappy_{snappy_name}.txt', "r", encoding="utf-8") as f:
 		SNAPPY_QUOTES += f.read().split("\n{[para]}\n")
 
 YOUTUBE_KEY = environ.get("YOUTUBE_KEY", "").strip()
