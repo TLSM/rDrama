@@ -17,7 +17,7 @@
 	<div class="srd">
 		{% include "journoid_banner.html" %}
 	</div>
-{% elif g.loggedin_counter and g.loggedin_counter+g.loggedout_counter > 100 and not err %}
+{% elif g.loggedin_counter and not err and (SITE_NAME == 'PCM' or g.loggedin_counter+g.loggedout_counter > 100) %}
 	<div class="srd">
 		<img src="/e/marseylowpoly.webp" height=18 width=28>
 
