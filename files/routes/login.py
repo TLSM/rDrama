@@ -562,9 +562,3 @@ def reset_2fa():
 	return render_template("message_success.html",
 						   title="Two-factor authentication removed.",
 						   message="Login normally to access your account.")
-
-
-@app.get("/check_loggedin")
-@auth_desired
-def check_loggedin(v):
-	return {"id": v.id if v else None}
