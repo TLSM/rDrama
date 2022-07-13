@@ -375,3 +375,32 @@ def settings_security(v):
 def dismiss_mobile_tip():
 	session["tooltip_last_dismissed"] = int(time.time())
 	return "", 204
+
+@app.get("/transfers/<id>")
+@auth_required
+def transfers_id(id, v):
+
+	try: id = int(id)
+	except: abort(404)
+
+	transfer = g.db.get(Comment, id)
+
+	if not transfer: abort(404)
+
+	return render_template("transfers.html", v=v, page=1, comments=[transfer], standalone=True, next_exists=False)
+
+@app.get("/transfers")
+@auth_required
+def transfers(v):
+
+	comments = g.db.query(Comment).filter(Comment.author_id == AUTOJANNY_ID, Comment.parent_submission == None, Comment.body_html.like("%</a> has transferred %")).order_by(Comment.id.desc())
+
+	if request.headers.get("Authorization"): return {"data": [x.json for x in comments.all()]}
+
+	try: page = max(int(request.values.get("page", 1)), 1)
+	except: page = 1
+
+	comments = comments.offset(25 * (page - 1)).limit(26).all()
+	next_exists = len(comments) > 25
+	comments = comments[:25]
+	return render_template("transfers.html", v=v, page=page, comments=comments, standalone=True, next_exists=next_exists)

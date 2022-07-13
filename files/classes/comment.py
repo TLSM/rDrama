@@ -233,6 +233,11 @@ class Comment(Base):
 
 	@property
 	@lazy
+	def log_link(self):
+		return f"{SITE_FULL}/transfers/{self.id}"
+
+	@property
+	@lazy
 	def morecomments(self):
 		return f"{self.post.permalink}/{self.id}#context"
 

@@ -105,7 +105,7 @@ class ModAction(Base):
 	@property
 	@lazy
 	def permalink(self):
-		return f"/log/{self.id}"	
+		return f"{SITE_FULL}/log/{self.id}"	
 
 ACTIONTYPES = {
 	'agendaposter': {
