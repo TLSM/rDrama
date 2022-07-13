@@ -1010,6 +1010,7 @@ DISCORD_BOT_TOKEN = environ.get("DISCORD_BOT_TOKEN",'').strip()
 DISCORD_AUTH = environ.get("DISCORD_AUTH",'').strip()
 GIPHY_KEY = environ.get('GIPHY_KEY').strip()
 MASTER_KEY = environ.get("MASTER_KEY")
+TRUSTED_SERVER_PSK = environ.get("TRUSTED_SERVER_PSK", None)
 FP = environ.get("FP")
 
 if SITE_NAME in ('Cringetopia', 'WPD'): PATRON_DEFAULT = 7

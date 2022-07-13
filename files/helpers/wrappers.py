@@ -4,6 +4,7 @@ from files.helpers.const import *
 from files.helpers.get import *
 from files.__main__ import db_session, limiter
 from random import randint
+import functools
 import user_agents
 
 def get_logged_in_user():
@@ -107,6 +108,23 @@ def auth_required(f):
 	wrapper.__name__ = f.__name__
 	return wrapper
 
+def auth_trusted_server(func):
+	@functools.wraps(func)
+	def inner(*args, **kwargs):
+		if not TRUSTED_SERVER_PSK: abort(401)
+
+		auth = request.headers.get("Authorization", None)
+		if not auth: abort(401)
+
+		auth_words = auth.split(' ')
+		if len(auth_words) != 2 or auth_words[0] != 'TrustedServer':
+			abort(401)
+
+		if not auth_words[1] == TRUSTED_SERVER_PSK:
+			abort(403)
+
+		return make_response(func(*args, **kwargs))
+	return inner
 
 def is_not_permabanned(f):
 
