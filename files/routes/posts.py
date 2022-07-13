@@ -704,8 +704,12 @@ def submit_post(v, sub=None):
 		return render_template("submit.html", SUBS=SUBS, v=v, error=error, title=title, url=url, body=body), 400
 
 
-	sub = request.values.get("sub")
-	if sub: sub = sub.replace('/h/','').replace('s/','')
+	sub = request.values.get("sub", "").lower().replace('/h/','').strip()
+
+	if sub == 'changelog':
+		allowed = g.db.query(User.id).filter(User.admin_level > 0).all() + g.db.query(Badge.user_id).filter_by(badge_id=3).all()
+		allowed = [x[0] for x in allowed]
+		if v.id not in allowed: return error(f"You don't have sufficient permissions to post in /h/changelog")
 
 	if sub and sub != 'none':
 		sname = sub.strip().lower()
