@@ -1,0 +1,42 @@
+{%- import 'util/helpers.html' as help -%}
+{%- import 'html_head.html' as html_head with context -%}
+<!DOCTYPE html>
+<html lang="en">
+{% if SITE == 'localhost' %}
+	{% set csp="script-src 'self' 'unsafe-inline' rdrama.net; connect-src 'self'; object-src 'none';" %}
+{% else %}
+	{% set csp=none %}
+{% endif %}
+{{html_head.html_head(true, true, true, csp, "Chat", none, "", false)}}
+<body>
+	{% include "header.html" %}
+	<div id="watchparty">
+		<iframe id="watchparty-video" src="https://www.youtube.com/embed/95YCIqpTa4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<iframe id="watchparty-chat" src="/chat?embed=true"></iframe>
+	</div>
+	<style>
+		html, body, #watchparty {
+			width: 100%;
+			height: 100%;
+		}
+		#watchparty {
+			display: flex;
+			flex-direction: column;
+		}
+		iframe {
+			width: 100%;
+			height: 50%;
+		}
+		#watchparty-video {
+			max-width: 560px;
+			max-height: 315px;
+			margin: 0 auto;
+			flex-grow: 1;
+		}
+		#watchparty-chat {
+			width: 100%;
+			height: 50%;
+			flex-grow: 1;
+		}
+	</style>
+</body>

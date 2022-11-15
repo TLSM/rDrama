@@ -9,7 +9,7 @@
 {% endif %}
 {{html_head.html_head(true, true, true, csp, "Chat", none, "", false)}}
 <body>
-	{% include "header.html" %}
+	{% if not request.values.get("embed", False) %}{% include "header.html" %}{% endif %}
 	{% include "expanded_image_modal.html" %}
 	{% include "emoji_modal.html" %}
 
@@ -33,4 +33,11 @@
 	{% endif %}
 	<script defer src="{{'js/lozad.js' | asset}}"></script>
 	<script defer src="{{'js/lite-youtube.js' | asset}}"></script>
+	{% if request.values.get("embed", False) %}
+		<style>
+			body {
+				padding-top: 0;
+			}
+		</style>
+	{% endif %}
 </body>

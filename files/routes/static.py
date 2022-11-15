@@ -247,6 +247,11 @@ def submit_contact(v):
 
 	return render_template("contact.html", v=v, msg="Your message has been sent to the admins!")
 
+@app.get("/watchparty")
+@is_not_permabanned
+def chat_watchparty(v):
+	return render_template("chat_watchparty.html", v=v)
+
 @app.get('/archives')
 def archivesindex():
 	return redirect("/archives/index.html")
